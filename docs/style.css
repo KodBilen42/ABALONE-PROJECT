@@ -15,6 +15,7 @@ div.container{
     width: 15vh;
     height: 100vh;
     background: #7f7f7f;
+    position: fixed;
 }
 #logo{
     width: 95%;
@@ -39,9 +40,15 @@ div.container{
 }
 .homeContainer{
     display: flex;
+    flex-direction: column;
     align-items: center;
     justify-content: space-between;
-    margin: 4vh 20vh;
+    margin: 4vh 30vh;
+}
+.table_texts{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
 }
 .text_buttons{
     font-size: 6vh;
@@ -53,8 +60,13 @@ div.container{
     margin: 0 auto;
     align-items: center;
 }
-.buttons button{
+.buttons a{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-decoration: none;
     background: #66ff00;
+    color: #000;
     margin: 10px 0;
     height: 11vh;
     border: 3px solid rgb(0, 0, 0);
@@ -62,10 +74,25 @@ div.container{
     width: 50vh;
     font-size: 5vh;
 }
-.buttons button:hover{
+.buttons a:active{
+    color: #000;
+}
+.buttons a:hover{
     border: 5px solid rgb(65, 65, 65);
     cursor: pointer;
 }
 .table{
-    width: 40%;
+    width: 60vh;
+}
+.rules{
+    width: 100vh;
+    margin: 5vh auto;
+}
+.rules h1{
+    color: rgb(255, 0, 0);
+    font-size: 4vh;
+}
+.rules p{
+    font-size: 2vh;
+    color: #fff;
 }
