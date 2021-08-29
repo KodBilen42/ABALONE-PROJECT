@@ -6,7 +6,7 @@ x-> y index position of the piece you want to move (int)
 c-> color info for your piece "W" for white, "R" for red
 
 move d
-d-> direction index 
+d-> direction index (int)
 direction indexes are as follows:
  0 1
 2 x 3
