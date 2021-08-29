@@ -11,11 +11,29 @@ class Board:
             distance_to_middle = abs(4-y)
             self.board.append([i for i in range(9 - distance_to_middle)])
 
+    def is_position_in_range(self, position):
+        x = y = None
+        if len(position) == 2:
+            x, y = position
+        elif len(position) == 3:
+            x, y, _ = position
+        if y > 8:
+            return False
+        elif x >= len(self.board[y]):
+            return False
+        else:
+            return True
+
     def find_ball_by_position(self, target_ball, balls=None):
+        if target_ball is None:
+            return None
         if balls is None:
             balls = self.balls
+        if len(target_ball) == 3:
+            target_x, target_y, target_color = target_ball
+        elif len(target_ball) == 2:
+            target_x, target_y = target_ball
 
-        target_x, target_y, target_color = target_ball
         for ball in balls:
             ball_x, ball_y, ball_color = ball
             if {ball_x, ball_y} == {target_x, target_y}:
@@ -49,6 +67,8 @@ class Board:
             if y > 8:
                 final_borders.append(None)
             elif x >= len(self.board[y]):
+                final_borders.append(None)
+            elif x < 0 or y < 0:
                 final_borders.append(None)
             else:
                 final_borders.append(border)
@@ -206,6 +226,21 @@ class Board:
                 return False
         return True
 
+    def push(self, ball, direction):
+        if self.find_ball_by_position(ball) is None:
+            return False
+        borders = self.find_borders(ball)
+        moving_position = borders[direction]
+        if self.find_ball_by_position(moving_position) is not None:
+            self.push(self.find_ball_by_position(moving_position), direction)
+        self.balls.remove(ball)
+        if moving_position is None:
+            return ["pushed", ball]
+        if self.is_position_in_range(moving_position):
+            moving_position.append(ball[2])
+            self.balls.append(moving_position)
+        return True
+
     def move(self, balls, direction):
         if self.input_check(balls) is False:
             return False
@@ -219,6 +254,9 @@ class Board:
         for ball in balls:
             borders = self.find_borders(ball)
             moving_position = borders[direction]
+            moving_ball = self.find_ball_by_position(moving_position)
+            if moving_ball is not None and moving_ball not in balls:
+                push_data = self.push(moving_ball, direction)
             self.balls.remove(ball)
             moving_position.append(ball[2])
             self.balls.append(moving_position)
