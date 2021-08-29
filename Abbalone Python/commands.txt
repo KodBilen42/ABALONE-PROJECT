@@ -1,0 +1,13 @@
+commands to play the game through console
+
+select xyc
+x-> x index position of the piece you want to move (int)
+x-> y index position of the piece you want to move (int)
+c-> color info for your piece "W" for white, "R" for red
+
+move d
+d-> direction index 
+direction indexes are as follows:
+ 0 1
+2 x 3
+ 4 5
