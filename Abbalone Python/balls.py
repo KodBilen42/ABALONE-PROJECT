@@ -1,2 +1,0 @@
-class ball:
-    position = None
