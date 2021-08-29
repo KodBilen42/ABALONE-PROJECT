@@ -2,7 +2,7 @@ commands to play the game through console
 
 select xyc
   x-> x index position of the piece you want to move (int)
-  x-> y index position of the piece you want to move (int)
+  y-> y index position of the piece you want to move (int)
   c-> color info for your piece "W" for white, "R" for red (str)
 
   select a piece you want to move
@@ -11,7 +11,7 @@ select xyc
 
 unselect xyc
   x-> x index position of the piece you want to move (int)
-  x-> y index position of the piece you want to move (int)
+  y-> y index position of the piece you want to move (int)
   c-> color info for your piece "W" for white, "R" for red (str)
 
   unselect a piece that you selected previusly
