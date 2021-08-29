@@ -1,6 +1,6 @@
 import board
 
-
+print("type help to see all commands")
 board = board.Board()
 board.initialize_board(default_board=True, show_indexes=True)
 board.display()
@@ -33,7 +33,34 @@ while True:
         board.display()
 
     elif command == "help":
-        pass
+        print("select xyc")
+        print("  x-> x index position of the piece you want to move (int)")
+        print("  x-> y index position of the piece you want to move (int)")
+        print('  c-> color info for your piece "W" for white, "R" for red (str')
+        print("")
+        print("  select a piece you want to move")
+        print("  you can run as many select command as you need")
+        print("  you can only select one piece with one command")
+        print("")
+        print("")
+        print("unselect xyc")
+        print("  x-> x index position of the piece you want to move (int)")
+        print("  y-> y index position of the piece you want to move (int)")
+        print('  c-> color info for your piece "W" for white, "R" for red (str)')
+        print("")
+        print("  unselect a piece that you selected previusly")
+        print("  you can run as many unselect commands as you need")
+        print("  you can only unselect one piece with one command")
+        print("")
+        print("")
+        print("move d")
+        print("  d-> direction index (int)")
+        print("  direction indexes are as follows:")
+        print("   0 1")
+        print("  2 x 3")
+        print("   4 5")
+        print("")
+        print("  move selected peice(s)")
 
     else:
         print("invalid command")
