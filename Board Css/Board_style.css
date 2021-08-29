@@ -16,7 +16,7 @@ html{
 
 .container{
     width: 92rem;
-    background-color: rgb(117, 54, 2);
+    background-color: #402218;
     overflow: hidden;
 }
 
@@ -29,7 +29,7 @@ html{
     width: 10rem;
     height: 10rem;
     border-radius: 50%;
-    background-color: rgb(187, 73, 7);
+    background-color: #c5a880;
     display: inline-block;
     position: relative;
 }
@@ -62,7 +62,7 @@ html{
     width: 9rem;
     height: 9em;
     border-radius: 50%;
-    background-color: rgb(211, 211, 211);
+    background-color: rgb(235, 235, 235);
 }
 
 .white:hover{
