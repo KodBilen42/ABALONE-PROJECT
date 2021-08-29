@@ -1,6 +1,7 @@
 class Board:
     balls = []
     board = []
+    turn = "R"
 
     def initialize_board(self, default_board=True, show_indexes=True):
         self.board = []
@@ -240,6 +241,20 @@ class Board:
                 return False
         return True
 
+    def turn_color_check(self, balls):
+        color = None
+        for ball in balls:
+            if color is None:
+                color = ball[2]
+            elif ball[2] != color:
+                print("turn check fail (colors are not identical)")
+                return False
+        if self.turn != color:
+            print("turn check failed")
+            return False
+        return True
+
+
     def push(self, ball, direction):
         if self.find_ball_by_position(ball) is None:
             return False
@@ -264,6 +279,8 @@ class Board:
             return False
         if not self.force_check(balls, direction):
             return False
+        if self.turn_color_check(balls) is False:
+            return False
 
         for ball in balls:
             borders = self.find_borders(ball)
@@ -274,4 +291,9 @@ class Board:
             self.balls.remove(ball)
             moving_position.append(ball[2])
             self.balls.append(moving_position)
+
+        if self.turn == "W":
+            self.turn = "R"
+        elif self.turn == "R":
+            self.turn = "W"
         return True
