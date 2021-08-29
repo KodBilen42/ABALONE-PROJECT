@@ -1,0 +1,88 @@
+html{
+    font-size: 5px;
+}
+
+*{
+    box-sizing: border-box;
+    padding: 0;
+    margin: 0;
+}
+
+.clearfix::after{
+    content: "";
+    display: block;
+    clear: both;
+}
+
+.container{
+    width: 92rem;
+    background-color: #402218;
+    overflow: hidden;
+}
+
+.row{
+    width: 100%;
+    height: 10ren;
+}
+
+.position{
+    width: 10rem;
+    height: 10rem;
+    border-radius: 50%;
+    background-color: #c5a880;
+    display: inline-block;
+    position: relative;
+}
+
+
+.red::after{
+    position: absolute;
+    content: "";
+    display: block;
+    z-index: 1;
+    top: .5rem;
+    left: .5rem;
+    width: 9rem;
+    height: 9em;
+    border-radius: 50%;
+    background-color: rgb(199, 0, 0);
+}
+
+.red:hover{
+    background-color: rgb(102, 0, 0);
+}
+
+.white::after{
+    position: absolute;
+    content: "";
+    display: block;
+    z-index: 1;
+    top: .5rem;
+    left: .5rem;
+    width: 9rem;
+    height: 9em;
+    border-radius: 50%;
+    background-color: rgb(235, 235, 235);
+}
+
+.white:hover{
+    background-color: rgb(44, 44, 44);
+}
+
+
+.one{
+    margin: 0 20rem;
+}
+.two{
+    margin: 0 15rem;
+}
+.three{
+    margin: 0 10rem;
+}
+.four{
+    margin: 0 5rem;
+}
+.five{
+    margin: 0 0rem;
+}
+
