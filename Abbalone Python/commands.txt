@@ -1,28 +1,28 @@
 commands to play the game through console
 
 select xyc
-x-> x index position of the piece you want to move (int)
-x-> y index position of the piece you want to move (int)
-c-> color info for your piece "W" for white, "R" for red (str)
+  x-> x index position of the piece you want to move (int)
+  x-> y index position of the piece you want to move (int)
+  c-> color info for your piece "W" for white, "R" for red (str)
 
-select a piece you want to move
-you can run as many select command as you need
-you can only select one piece with one command
+  select a piece you want to move
+  you can run as many select command as you need
+  you can only select one piece with one command
 
 unselect xyc
-x-> x index position of the piece you want to move (int)
-x-> y index position of the piece you want to move (int)
-c-> color info for your piece "W" for white, "R" for red (str)
+  x-> x index position of the piece you want to move (int)
+  x-> y index position of the piece you want to move (int)
+  c-> color info for your piece "W" for white, "R" for red (str)
 
-unselect a piece that you selected previusly
-you can run as many unselect commands as you need
-you can only unselect one piece with one command
+  unselect a piece that you selected previusly
+  you can run as many unselect commands as you need
+  you can only unselect one piece with one command
 
 move d
-d-> direction index (int)
-direction indexes are as follows:
- 0 1
-2 x 3
- 4 5
+  d-> direction index (int)
+  direction indexes are as follows:
+   0 1
+  2 x 3
+   4 5
 
-move selected peice(s)
+  move selected peice(s)
