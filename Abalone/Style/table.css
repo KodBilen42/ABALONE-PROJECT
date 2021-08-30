@@ -84,3 +84,6 @@ button.white:focus{
     font-size: 1rem;
     border: none;
 }
+.confirm-btn:hover{
+    cursor: pointer;
+}
