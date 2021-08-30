@@ -137,7 +137,7 @@ class Board:
                 break
             ball = self.find_ball_by_position(ball)
             if ball is None:
-                return None
+                return 0
             if behind[2] != attacking_color:
                 force += 1
             elif behind[2] == attacking_color:
