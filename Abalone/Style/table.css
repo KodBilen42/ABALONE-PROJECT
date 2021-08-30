@@ -8,13 +8,22 @@ html{
     scroll-behavior: smooth;
     font-size: 20px;
 }
+@media (max-width: 1500px) {
+    html{
+        font-size: 16px;
+    }
+    button{
+        border: 0.1875rem solid #c5a880;
+    }
+}
 body{
     background: #2D2424;
+    display: flex;
 }
 .container{
     display: inline-block;
     background: #402218;
-    width: 100%;
+    margin: auto;
 }
 button{
     width: 5rem;
@@ -23,7 +32,7 @@ button{
     border: 0.15rem solid #c5a880;
 }
 button:hover{
-    border: 0.15rem solid #2D2424;
+    border: 0.15rem solid #000;
 }
 .fourth_line{
     margin-left: 2.5rem;
@@ -57,4 +66,10 @@ button:hover{
 }
 .white{
     background: white;
+}
+button.red:focus{
+    border: 0.15rem solid #000;
+}
+button.white:focus{
+    border: 0.15rem solid #000;
 }
