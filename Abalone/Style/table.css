@@ -84,3 +84,7 @@ button.white:focus{
     font-size: 1rem;
     border: none;
 }
+
+.selected{
+    opacity: 70%;
+}
