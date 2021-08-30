@@ -142,7 +142,7 @@ class Board:
                 force += 1
             elif behind[2] == attacking_color:
                 force = 9
-        return force
+        return force + 1
 
     def find_head(self, balls, direction):
         block_direction = self.block_check(balls)
