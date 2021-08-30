@@ -1,5 +1,5 @@
 html{
-    font-size: 5px;
+    font-size: 8px;
 }
 
 *{
@@ -45,7 +45,7 @@ html{
     top: .5rem;
     left: .5rem;
     width: 9rem;
-    height: 9em;
+    height: 9rem;
     border-radius: 50%;
     background-color: rgb(199, 0, 0);
 }
@@ -62,7 +62,7 @@ html{
     top: .5rem;
     left: .5rem;
     width: 9rem;
-    height: 9em;
+    height: 9rem;
     border-radius: 50%;
     background-color: rgb(235, 235, 235);
 }
