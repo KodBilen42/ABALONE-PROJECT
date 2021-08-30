@@ -88,3 +88,6 @@ button.white:focus{
 .selected{
     opacity: 70%;
 }
+.confirm-btn:hover{
+    cursor: pointer;
+}
