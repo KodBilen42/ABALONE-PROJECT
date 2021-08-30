@@ -270,6 +270,18 @@ class Board:
             self.balls.append(moving_position)
         return True
 
+    def calculate_scores(self):
+        red = 0
+        white = 0
+        for ball in self.balls:
+            if ball[2] == "W":
+                red += 1
+            elif ball[2] == "R":
+                white += 1
+        red = 14 - red
+        white = 14 - white
+        return red, white
+
     def move(self, balls, direction):
         if self.input_check(balls) is False:
             return False
@@ -296,4 +308,6 @@ class Board:
             self.turn = "R"
         elif self.turn == "R":
             self.turn = "W"
-        return True
+
+        red_score, white_score = self.calculate_scores()
+        return red_score, white_score
