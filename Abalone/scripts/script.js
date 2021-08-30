@@ -1,4 +1,3 @@
-
 var selected = [];
 var command = "1";
 function select(elementid) {
@@ -25,21 +24,21 @@ function read_command(){
     console.log(data_selected)
     console.log(command)
 
-    /*
-    const spawn = require("child_process").spawn;
-    const pythonProcess = spawn('python',["move.py", command, data_selected]);
-    pythonProcess.stdout.on('data', (data) => {
+    $.ajax({
+      type: "POST",
+        url: "~/move.py",
+      data: { param: command, data_selected}
+    }).done(function(data) {
       data_pack = data;
-  });
-  for (var i = 0; i < length(data_pack); i++){
-    id = data_pack[i][0] + data_pack[i][1];
-      color = data_pack[i][2];
-
-      if (color == "W")
-        document.getElementById(id).className = "white";
-      else
-        document.getElementById(id).className = "red";
-    }
-    */
+      for (var i = 0; i < length(data_pack); i++){
+        id = data_pack[i][0] + data_pack[i][1];
+          color = data_pack[i][2];
+    
+          if (color == "W")
+            document.getElementById(id).className = "white";
+          else
+            document.getElementById(id).className = "red";
+        }
+    });
   }
 
