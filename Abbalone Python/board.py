@@ -153,7 +153,7 @@ class Board:
         if block_direction == direction or block_direction == self.opposite_direction(direction):
             for ball in balls:
                 borders = self.find_borders(ball)
-                if borders[direction] not in balls:
+                if self.find_ball_by_position(borders[direction]) not in balls:
                     return ball
         else:
             return None
