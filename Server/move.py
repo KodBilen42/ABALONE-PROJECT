@@ -1,21 +1,21 @@
-import requests
-
+import websockets
+import asyncio
 import board
-from flask import Flask, request, render_template
 
-app = Flask(__name__)
 board = board.Board()
 
+async def connecter():
+    uri = "ws://localhost:5500"
+    async with websockets.connect(uri) as websocket:
+        await websocket.send("python connected")
 
-@app.route('/temp', methods=['GET', 'POST'])
-def home():
-    return render_template()
+        message = await websocket.recv()
+        print(message)
 
-@app.route('/temp', methods=['GET', 'POST'])
-def temp():
-    return "hello world"
+asyncio.get_event_loop().run_until_complete(connecter())
+asyncio.get_event_loop().run_forever()
 
-@app.route('/move', methods=['GET', 'POST'])
+"""
 def move():
     command = request.form.get("command")
     data_selected = request.form.("data_selected")
@@ -42,3 +42,4 @@ def move():
 
 app.run(host='127.0.0.1', port=5000)
 app.run()
+"""
