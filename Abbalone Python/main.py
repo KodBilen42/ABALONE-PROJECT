@@ -5,7 +5,8 @@ board = board.Board()
 board.initialize_board(default_board=True, show_indexes=True)
 board.display()
 selection = []
-while True:
+is_finished = False
+while not is_finished:
     command = input()
     if command[:6] == "select":
         data = command[-3:]
@@ -28,8 +29,15 @@ while True:
 
     elif command[:4] == "move":
         direction = int(command[-1])
-        board.move(selection, direction)
+        move_data = board.move(selection, direction)
         selection = []
+
+        if len(move_data) == 2:
+            red, white = move_data
+            if red == 6 or white == 6:
+                is_finished = True
+                print("Game Over")
+            print("red:", red, "white:", white)
         board.display()
 
     elif command == "help":
@@ -48,7 +56,7 @@ while True:
         print("  y-> y index position of the piece you want to move (int)")
         print('  c-> color info for your piece "W" for white, "R" for red (str)')
         print("")
-        print("  unselect a piece that you selected previusly")
+        print("  unselect a piece that you selected previously")
         print("  you can run as many unselect commands as you need")
         print("  you can only unselect one piece with one command")
         print("")
