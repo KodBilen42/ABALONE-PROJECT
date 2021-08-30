@@ -15,6 +15,7 @@ html{
 }
 
 .container{
+    margin: auto;
     width: 92rem;
     background-color: #402218;
     overflow: hidden;
@@ -26,6 +27,7 @@ html{
 }
 
 .position{
+    margin: 0 auto;
     width: 10rem;
     height: 10rem;
     border-radius: 50%;
