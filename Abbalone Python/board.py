@@ -179,8 +179,9 @@ class Board:
             direction = None
             ball_borders = self.find_borders(ball)
             for i, ball_border in enumerate(ball_borders):
-                if self.find_ball_by_position([ball_border[0], ball_border[1], None], balls) is not None:
-                #if ball_border in balls:
+                if ball_border is None:
+                    continue
+                elif self.find_ball_by_position([ball_border[0], ball_border[1]], balls) is not None:
                     direction = i
                     if first_detected_direction is None:
                         first_detected_direction = direction
@@ -253,7 +254,6 @@ class Board:
             print("turn check failed")
             return False
         return True
-
 
     def push(self, ball, direction):
         if self.find_ball_by_position(ball) is None:
