@@ -235,7 +235,10 @@ class Board:
                     return False
             return True
 
-    def input_check(self, balls):
+    def input_check(self, balls, direction):
+        if direction > 5:
+            print("direction is invalid")
+            return False
         for ball in balls:
             if ball not in self.balls:
                 print("input error")
@@ -283,7 +286,7 @@ class Board:
         return red, white
 
     def move(self, balls, direction):
-        if self.input_check(balls) is False:
+        if self.input_check(balls, direction) is False:
             return False
         if self.block_check(balls) is False:
             return False
