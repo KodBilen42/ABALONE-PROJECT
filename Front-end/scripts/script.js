@@ -1,6 +1,7 @@
-//const { allowedNodeEnvironmentFlags } = require("process");
-
 const ws = new WebSocket("ws://localhost:5500");
+ws.addEventListener("open", ()=>{
+  ws.send("session_request")
+})
 state = "";
 ws.addEventListener("message", ({data}) =>{
   console.log(`server sent us ${data}`);
@@ -47,7 +48,7 @@ function read_command(){
       data_selected_string += data_selected[i].toString();
     }
     data = data_selected_string + command_string;
-    ws.send(data);
+    ws.send(`move_request${data}`);
     selected = []
   }
 
