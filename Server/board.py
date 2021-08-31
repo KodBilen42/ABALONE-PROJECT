@@ -316,10 +316,9 @@ class Board:
         return red_score, white_score
 
     def return_data(self):
-        data_pack = []
+        data_pack = ""
         for ball in self.balls:
-            color = {"R": "red", "W": "white"}
             id_data = str(ball[0]) + str(ball[1])
             data = id_data + ball[2]
-            data_pack.append(data)
-        return data_pack
+            data_pack += data
+        return "data" + data_pack

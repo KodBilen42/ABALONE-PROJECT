@@ -1,5 +1,21 @@
-let selected = [];
-let command = "1";
+//const { allowedNodeEnvironmentFlags } = require("process");
+
+const ws = new WebSocket("ws://localhost:5500");
+state = "";
+ws.addEventListener("message", ({data}) =>{
+  console.log(`server sent us ${data}`);
+
+  if ( data.slice(0, 4) == "data"){
+    new_state = data.slice(4, data.length);
+    console.log(`new state:${new_state}`);
+    state = new_state;
+    render()
+  }
+})
+
+var selected = [];
+var command = "9";
+
 function select(elementid) {
   if (selected.includes(document.getElementById(elementid))){
     selected.pop(document.getElementById(elementid));
@@ -21,24 +37,36 @@ function read_command(){
       selected_id = selected[i].id
       data_selected.push(selected_id)
     }
-    console.log(data_selected)
-    console.log(command)
 
-    $.ajax({
-      type: "POST",
-        url: "~/move.py",
-      data: { param: command, data_selected}
-    }).done(function(data) {
-      data_pack = data;
-      for (var i = 0; i < length(data_pack); i++){
-        id = data_pack[i][0] + data_pack[i][1];
-          color = data_pack[i][2];
-    
-          if (color == "W")
-            document.getElementById(id).className = "white";
-          else
-            document.getElementById(id).className = "red";
-        }
-    });
+    console.log(data_selected);
+    console.log(command);
+
+    command_string = command.toString();
+    data_selected_string = "";
+    for (let i = 0; i<data_selected.length; i++){
+      data_selected_string += data_selected[i].toString();
+    }
+    data = data_selected_string + command_string;
+    ws.send(data);
+    selected = []
   }
 
+function render(){
+
+  all_elements = document.getElementsByTagName("button")
+  for (let i = 0; i < all_elements.length; i++){
+    all_elements[i].className = "circle grey"
+  }
+
+  for (let i = 0; i < state.length / 3; i++){
+    id = state[i*3] + state[i*3 + 1]
+    color = state[i*3 + 2]
+
+    element = document.getElementById(id)
+    if (color == "W")
+      element.className = "circle white"
+    if (color == "R")
+      element.className = "circle red"
+
+  }
+}
