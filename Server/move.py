@@ -2,44 +2,33 @@ import websockets
 import asyncio
 import board
 
-board = board.Board()
+my_board = board.Board()
+my_board.initialize_board(default_board=True)
+my_board.display()
+def process_data(message):
+    balls = []
+    direction = int(message[-1])
+    selected = message[:-1]
+    for i in range(int(len(selected) / 2)):
+        x = int(selected[i*2])
+        y = int(selected[i*2 + 1])
+        ball = my_board.find_ball_by_position([x, y])
+        balls.append(ball)
+    my_board.move(balls, direction)
+    my_board.display()
+    return my_board.return_data()
 
 async def connecter():
-    uri = "ws://localhost:5500"
-    async with websockets.connect(uri) as websocket:
-        await websocket.send("python connected")
+        uri = "ws://localhost:5500"
+        async with websockets.connect(uri) as websocket:
+            await websocket.send("python connected")
 
-        message = await websocket.recv()
-        print(message)
+            greeting = message = await websocket.recv()
+            print("server saluted us: " + greeting)
 
-asyncio.get_event_loop().run_until_complete(connecter())
-asyncio.get_event_loop().run_forever()
-
-"""
-def move():
-    command = request.form.get("command")
-    data_selected = request.form.("data_selected")
-
-    print(command)
-    print(data_selected)
-    selected = []
-    for data in data_selected:
-        position = [int(data[0]), int(data[1])]
-        selected.append(board.find_ball_by_position(position))
-
-    direction = int(command)
-    move_data = board.move(selected, direction)
-    selection = []
-    if len(move_data) == 2:
-        red, white = move_data
-        if red == 6 or white == 6:
-            is_finished = True
-            print("Game Over")
-        print("red:", red, "white:", white)
-
-    data_pack = board.return_data()
-    return data_pack
-
-app.run(host='127.0.0.1', port=5000)
-app.run()
-"""
+            while True:
+                message = await websocket.recv()
+                print("server sent us: " + message)
+                new_state_data = process_data(message)
+                await websocket.send(new_state_data)
+asyncio.get_event_loop().run_until_complete((connecter()))

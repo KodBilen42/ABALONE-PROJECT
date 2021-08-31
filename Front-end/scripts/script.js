@@ -1,4 +1,17 @@
-const ws = new WebSocket("ws://localhost:5500")
+//const { allowedNodeEnvironmentFlags } = require("process");
+
+const ws = new WebSocket("ws://localhost:5500");
+state = "";
+ws.addEventListener("message", ({data}) =>{
+  console.log(`server sent us ${data}`);
+
+  if ( data.slice(0, 4) == "data"){
+    new_state = data.slice(4, data.length);
+    console.log(`new state:${new_state}`);
+    state = new_state;
+    render()
+  }
+})
 
 var selected = [];
 var command = "9";
@@ -7,12 +20,12 @@ function select(elementid) {
   if (selected.includes(document.getElementById(elementid))){
     selected.pop(document.getElementById(elementid));
     document.getElementById(elementid).className = document.getElementById(elementid).className.replace(" selected", "");
-    console.log(elementid + "removed")
+    console.log(elementid + "removed");
   }
   else{
     selected.push(document.getElementById(elementid));
     document.getElementById(elementid).className += " selected";
-    console.log(elementid + "added")
+    console.log(elementid + "added");
   }
 }
 
@@ -35,29 +48,25 @@ function read_command(){
     }
     data = data_selected_string + command_string;
     ws.send(data);
-
-
-    /*
-    axios.post('http://127.0.0.1:5000/move', {
-      command: command,
-      data_selected: data_selected
-    })
-    .then(function (response) {
-      console.log(response);
-      data_pack = respose.data
-      for (var i = 0; i < length(data_pack); i++){
-        id = data_pack[i][0] + data_pack[i][1];
-          color = data_pack[i][2];
-    
-          if (color == "W")
-            document.getElementById(id).className = "white";
-          else
-            document.getElementById(id).className = "red";
-        }
-    })
-    .catch(function (error) {
-      console.log(error);
-    });
-    */
+    selected = []
   }
 
+function render(){
+
+  all_elements = document.getElementsByTagName("button")
+  for (let i = 0; i < all_elements.length; i++){
+    all_elements[i].className = "circle grey"
+  }
+
+  for (let i = 0; i < state.length / 3; i++){
+    id = state[i*3] + state[i*3 + 1]
+    color = state[i*3 + 2]
+
+    element = document.getElementById(id)
+    if (color == "W")
+      element.className = "circle white"
+    if (color == "R")
+      element.className = "circle red"
+
+  }
+}
