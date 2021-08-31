@@ -1,23 +1,23 @@
-var selected = [];
-var command = "1";
+let selected = [];
+let command = "1";
 function select(elementid) {
   if (selected.includes(document.getElementById(elementid))){
     selected.pop(document.getElementById(elementid));
     document.getElementById(elementid).className = document.getElementById(elementid).className.replace(" selected", "");
-    console.log(elementid + "removed")
+    console.log(elementid + " removed")
   }
   else{
     selected.push(document.getElementById(elementid));
     document.getElementById(elementid).className += " selected";
-    console.log(elementid + "added")
+    console.log(elementid + " added")
   }
 }
 
 function read_command(){
     command = document.getElementById("textbox").value;
 
-    var data_selected = [];
-    for (var i = 0; i < selected.length; i++){
+    let data_selected = [];
+    for (let i = 0; i < selected.length; i++){
       selected_id = selected[i].id
       data_selected.push(selected_id)
     }
