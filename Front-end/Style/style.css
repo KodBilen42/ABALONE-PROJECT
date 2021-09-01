@@ -80,7 +80,7 @@ a{
 }
 @media (max-width:1500px) {
     html{
-        font-size: 13px;
+        font-size: 12px;
     }
     .playAi{
         width: 450px;
@@ -97,7 +97,7 @@ a{
 }
 @media (max-width:1280px) {
     html{
-        font-size: 12px;
+        font-size: 11px;
     }
     .playAi{
         width: 400px;
