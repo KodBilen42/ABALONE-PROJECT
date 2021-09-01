@@ -4,7 +4,7 @@ const wss = new WebSocket.Server({ port: 5500 });
 clients = [];
 sessions = [];
 python_client = null;
-session_requester = null
+session_requesters = []
 wss.on("connection", ws => {
     clients.push(ws);
     console.log("a user connected");
@@ -21,10 +21,17 @@ wss.on("connection", ws => {
         }
 
         else if(data == "session_request"){ // session request from browser
-            ws.send("session_request_taken")
-            if (python_client != null){
+            found_session = false
+            for(let i = 0; i < sessions.length; i++){
+                if (sessions[i].length == 2){
+                    sessions[i].push(ws)
+                    python_client.send(`session_start${sessions[i][0]}`)
+                    found_session = true
+                }
+            }
+            if (python_client != null && found_session == false){
                 python_client.send("session_request"); // send session request to python
-                session_requester = ws;
+                session_requesters.push(ws);
             }
         }
         
@@ -45,8 +52,8 @@ wss.on("connection", ws => {
         else if (data.slice(0,10) == "session_id"){
             session_id = data.slice(10, data.length);
                 session_id = `${session_id}`;
-                sessions.push([session_id, session_requester]) // save session id
-                session_requester = null;
+                sessions.push([session_id, session_requesters[0]]) // save session id
+                session_requesters.pop(session_requesters[0])
         }
 
         else if (ws == python_client && data.slice(0, 12) == "move_respond"){ // move respond info from python
@@ -54,7 +61,6 @@ wss.on("connection", ws => {
             let parts = data.split(",");
             let session_id = parts[0];
             let move_data = parts[1];  
-            console.log(sessions)
             for (let i = 0; i < sessions.length; i++){
                 if (sessions[i][0] == session_id){
                     console.log(`sending new state data to all clients (length:${clients.length})`);
@@ -67,6 +73,12 @@ wss.on("connection", ws => {
     });
     ws.on("close", () => {
         clients.pop(ws);
+        for (let i = 0; i < sessions.length; i++){
+            if (sessions[i].includes(ws)){
+                python_client.send("session_close"+sessions[i][0])
+                sessions.pop(sessions)
+            }
+        }
         console.log("a user disconnected");
     } )
 })

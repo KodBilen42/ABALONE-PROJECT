@@ -23,7 +23,9 @@ class Session:
         self.my_board.initialize_board(default_board=True)
         print("new session created sessions:" + str(len(sessions)))
 
-    def process_data(self, message):
+    def process_data(self, message = None):
+        if message is None:
+            return self.my_board.return_data()
         balls = []
         direction = int(message[-1])
         selected = message[:-1]
@@ -50,11 +52,24 @@ async def connecter():
                 print("server sent us: " + message)
                 if message[:15] == "session_request":
                     sess = Session()
-                    await websocket.send("session_id"+str(id(sess)))
-                else:
-                    if message[:9] == "move_data":
-                        session_id, move = message[9:].split(",")
-                        new_state_data = find_session(session_id).process_data(move)
-                        await websocket.send("move_respond"+session_id+","+new_state_data)
+                    session_id = str(id(sess))
+                    await websocket.send("session_id"+session_id)
+
+                elif message[:13] == "session_start":
+                    session_id = message[13:]
+                    new_state_data = find_session(session_id).process_data()
+                    await websocket.send("move_respond" + session_id + "," + new_state_data)
+
+                elif message[:9] == "move_data":
+                    session_id, move = message[9:].split(",")
+                    new_state_data = find_session(session_id).process_data(move)
+                    await websocket.send("move_respond"+session_id+","+new_state_data)
+
+                elif message[:13] == "session_close":
+                    session_id = message[13:]
+                    for session in sessions:
+                        if str(id(session)) == session_id:
+                            sessions.remove(session)
+                            print("session_removed remaining sessions "+str(len(sessions)))
 
 asyncio.get_event_loop().run_until_complete((connecter()))
