@@ -2,99 +2,176 @@
     margin: 0;
     padding: 0;
     box-sizing: border-box;
-    font-family: 'Roboto', sans-serif;
-    word-spacing: 2px;
+    font-family: 'Montserrat', sans-serif;
 }
-html {
+html{
     scroll-behavior: smooth;
-  }
+}
 body{
-    background: #2D2424;
+    background: #190404;
+}
+.logo{
+    margin-top: 20px;
+    margin-left: 20px;
+}
+.board img{
+    width: 50rem;
+}
+.main-content{
+    justify-content: center;
     display: flex;
 }
-div.container{
-    width: 15vh;
-    height: 100vh;
-    background: #402218;
-    position: fixed;
-}
-#logo{
-    width: 95%;
-    display: flex;
-    margin: 0 auto 10px auto;
-}
-.navbar{
+.side-content{
+    margin-left: 10rem;
+    text-align: center;
     display: flex;
     flex-direction: column;
 }
-.navbar li{
-    margin: 10px auto;
-    list-style: none;
-    font-size: 1.25rem;
+.top-h1{
+    margin-top: 55px;
 }
-.navbar li a{
+.bottom-h1{
+    margin-bottom: 125px;
+
+}
+.paragraphs p{
+    display: flex;
+    max-width: fit-content;
+}
+.playOnline{
+    width: 500px;
+    height: 100px;
+    background: linear-gradient(180deg, #FFFFFF 50%, rgba(255, 255, 255, 0.7) 100%, rgba(255, 255, 255, 0.75) 100%);
+    border-radius: 10px;
+    border: none;
+    text-align: start;
+    display: flex;
+    align-items: center;
+}
+.playAi{
+    width: 500px;
+    height: 100px;
+    background: linear-gradient(180deg, #BB1717 50%, rgba(187, 23, 23, 0.75) 100%);
+    border-radius: 10px;
+    border: none;
+    text-align: start;
+    display: flex;
+    align-items: center;
+}
+.space{
+    margin-top: 15px;
+}
+.playAi img{
+    margin-left: 40px;
+    margin-right: 10px;
+}
+.playOnline img{
+    margin-left: 40px;
+    margin-right: 10px;
+}
+a{
     text-decoration: none;
-    color: #F9A504;
+    color: #fff;
 }
-.navbar li a:hover{
-    color: #f9ca6e;
+@media (max-width:1600px) {
+    html{
+        font-size: 15px;
+    }
 }
-.homeContainer{
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: space-between;
-    margin: 4vh 30vh;
+@media (max-width:1500px) {
+    html{
+        font-size: 13px;
+    }
+    .playAi{
+        width: 450px;
+        height: 80px;
+        font-size: 40px !important;
+        margin-left: 30px;
+    }
+    .playOnline{
+        width: 450px;
+        height: 80px;
+        font-size: 40px !important;
+        margin-left: 30px;
+    }
 }
-.table_texts{
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
+@media (max-width:1280px) {
+    html{
+        font-size: 12px;
+    }
+    .playAi{
+        width: 400px;
+        height: 75px;
+        font-size: 36px !important;
+        margin-left: 30px;
+    }
+    .playOnline{
+        width: 400px;
+        height: 75px;
+        font-size: 36px !important;
+        margin-left: 30px;
+    }
 }
-.text_buttons{
-    font-size: 6vh;
-    color: #F0E3CA;
-}
-.buttons{
-    display: flex;
-    flex-direction: column;
-    margin: 0 auto;
-    align-items: center;
-}
-.buttons a{
-    display: flex;
+.modal-window {
+    position: fixed;
+    background-color: rgba(0, 0, 0,0.5);
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    z-index: 999;
+    visibility: hidden;
+    opacity: 0;
+    pointer-events: none;
+    transition: all 0.3s;
+  }
+.modal-window:target {
+    visibility: visible;
+    opacity: 1;
+    pointer-events: auto;
+  }
+.modal-window > div {
+    width: 400px;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    padding: 2em;
+    background: #1f1f1f;
+  }
+.modal-window header {
+    font-weight: bold;
+  }
+.modal-window h1 {
+    font-size: 150%;
+    margin: 0 0 15px;
+  }
+.modal-close {
+    color: #aaa;
+    line-height: 50px;
+    font-size: 80%;
+    position: absolute;
+    right: 0;
+    text-align: center;
+    top: 0;
+    width: 70px;
+    text-decoration: none;
+  }
+.modal-close:hover {
+    color: rgb(100, 100, 100);
+  }
+.container {
+    display: grid;
     justify-content: center;
     align-items: center;
-    text-decoration: none;
-    background: #C5A880;
-    color: #000;
-    margin: 10px 0;
-    height: 10vh;
-    border: 3px solid rgb(0, 0, 0);
-    border-radius: 3vh;
-    width: 45vh;
-    font-size: 5vh;
-}
-.buttons a:active{
-    color: #000;
-}
-.buttons a:hover{
-    border: 5px solid rgb(65, 65, 65);
-    cursor: pointer;
-}
-.table{
-    width: 60vh;
-}
-.rules{
-    width: 100vh;
-    margin: 5vh auto;
-}
-.rules h1{
-    color: #C24914;
-    font-size: 4vh;
-}
-.rules p{
-    font-size: 2vh;
-    color: #F0E3CA;
-    text-align: justify;
+    height: 100vh;
+  }
+.modal-window > div {
+    border-radius: 1rem;
+  }
+.modal-window div:not(:last-of-type) {
+    margin-bottom: 15px;
+  }
+.modal-text{
+    color: #fff;
 }

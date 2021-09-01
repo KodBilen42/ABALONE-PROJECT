@@ -4,58 +4,51 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Website</title>
-    <link rel="stylesheet" href="Style/style.css">
+    <title>Abalone</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@600;700;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="Style/style.css">
 </head>
 <body>
-    <div class="container">
-        <img id="logo" src="logo.png" alt="">
-        <ul class="navbar">
-            <li><a href="#play">Play</a></li>
-
-            <li><a href="#settings">Settings</a></li>
-
-            <li><a href="#connect">Connect</a></li>
-
-            <li><a href="#more">More</a></li>
-        </ul>
+    <div class="logo">
+        <img src="Logo.svg" alt="">
     </div>
+    <div class="main-content">
+        <div class="board">
+            <img src="Board.svg" alt="">
+        </div>
+        <div class="side-content">
 
-    <section id="home">
-        <div class="homeContainer">
-            <div class="table_texts">
-                <img class="table" src="Table.png" alt="">
-                <div class="text_buttons">
-                    <p>Play ABBALONE for Free now</p>
-                    <div class="buttons">
-                        <a href="Board.html">PLAY Online</a>
-                        <a href="table.html">PLAY Computer</a>
-                    </div>
-                </div>
+            <h1 class="top-h1" style="font-weight: 900; color:#fff; font-size: 96px;">Play</h1>
+            <h1 class="bottom-h1" style="font-weight: 700; color:#fff; font-size: 96px;">ABALONE</h1>
+            <a href="table.html"><div class="playOnline" style="font-weight: 700; color: #BB1717; font-size: 42px;"><img src="users.svg" alt=""> Play Online</div></a>
+            <div class="space"></div>
+            <a href=""><div class="playAi" style="font-weight: 700; color: #fff; font-size: 42px;"><img src="hard-drive.svg" alt=""> Play Against AI</div></a>
+            <div class="space"></div>
+            
+            <div class="paragraphs">
+                <span style="font-weight: 600; color: rgb(178, 178, 178); font-size: 18px;">How to play?</span>
+                <span style="font-weight: 600; color: #fff; font-size: 18px;"><a href="#open-modal">See rules</a></span>
             </div>
-            <div class="rules">
-                <h1>RULES</h1>
-                <p>
-                    The board consists of 61 circular spaces arranged in a hexagon, five on a side.
-                    Each player has 14 marbles that rest in the spaces and are initially arranged as shown below, on the left image.
-                    The players take turns with the black marbles moving first.
-                    For each move, a player moves a straight line of one, two or three marbles of one color one space in one of six directions.
-                    The move can be either broadside / arrow-like (parallel to the line of marbles) or in-line / in a line (serial in respect to the line of marbles),
-                    as illustrated below.
-                </p>
-                <br>
-                <p>
-                    A player can push their opponent's marbles (a "sumito") that are in a line to their own with an in-line move only.
-                    They can only push if the pushing line has more marbles than the pushed line (three can push one or two; two can push one).
-                    Marbles must be pushed to an empty space (i.e. not blocked by a marble) or off the board.
-                    The winner is the first player to push six of the opponent's marbles off of the edge of the board.
-                </p>
+            
+        </div> 
+    </div>
+      <div id="open-modal" class="modal-window">
+        <div>
+            <a href="#" title="Close" class="modal-close">Close</a>
+            <h1 class="modal-text">How to Play</h1>
+            <div class="modal-text">
+                The board consists of 61 circular spaces arranged in a hexagon, five on a side.
+                Each player has 14 marbles that rest in the spaces and are initially arranged as shown below, on the left image.
+                The players take turns with the black marbles moving first. For each move, a player moves a straight line of one, two or three marbles of one color one space in one of six directions.
+                The move can be either broadside / arrow-like (parallel to the line of marbles) or in-line / in a line (serial in respect to the line of marbles), as illustrated below.
+                A player can push their opponent's marbles (a "sumito") that are in a line to their own with an in-line move only.
+                They can only push if the pushing line has more marbles than the pushed line (three can push one or two; two can push one). Marbles must be pushed to an empty space
+                (i.e. not blocked by a marble) or off the board. The winner is the first player to push six of the opponent's marbles off of the edge of the board.
             </div>
         </div>
-    </section>
+    </div>
     
 </body>
 </html>
