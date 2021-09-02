@@ -321,4 +321,4 @@ class Board:
             id_data = str(ball[0]) + str(ball[1])
             data = id_data + ball[2]
             data_pack += data
-        return "data" + data_pack
+        return "data" + data_pack, self.turn

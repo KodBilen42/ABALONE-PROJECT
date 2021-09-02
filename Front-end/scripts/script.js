@@ -52,8 +52,6 @@ function read_command(){
       command_changer = "452301"
       command = command_changer[parseInt(command)]
     }
-    
-
 
     let data_selected = [];
     for (let i = 0; i < selected.length; i++){

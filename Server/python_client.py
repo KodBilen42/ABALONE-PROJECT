@@ -57,13 +57,13 @@ async def connecter():
 
                 elif message[:13] == "session_start":
                     session_id = message[13:]
-                    new_state_data = find_session(session_id).process_data()
-                    await websocket.send("move_respond" + session_id + "," + new_state_data)
+                    new_state_data, turn_color = find_session(session_id).process_data()
+                    await websocket.send("move_respond" + session_id + "," + new_state_data + "," + turn_color)
 
                 elif message[:9] == "move_data":
                     session_id, move = message[9:].split(",")
-                    new_state_data = find_session(session_id).process_data(move)
-                    await websocket.send("move_respond"+session_id+","+new_state_data)
+                    new_state_data, turn_color = find_session(session_id).process_data(move)
+                    await websocket.send("move_respond"+session_id+","+new_state_data+","+turn_color)
 
                 elif message[:13] == "session_close":
                     session_id = message[13:]

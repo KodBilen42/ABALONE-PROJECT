@@ -1,2 +1,2 @@
 start node index.js
-start python move.py
+start python python_client.py

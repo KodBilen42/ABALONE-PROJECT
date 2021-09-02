@@ -5,6 +5,7 @@ clients = [];
 sessions = [];
 python_client = null;
 session_requesters = []
+turn_color = null;
 wss.on("connection", ws => {
     clients.push(ws);
     console.log("a user connected");
@@ -39,15 +40,22 @@ wss.on("connection", ws => {
         
         else if (data.slice(0,12) == "move_request"){ //move information from browser
                 if (python_client != null){
-                console.log("sending message to python_client");
-                move_data = data.slice(12, data.length);
-                let session_id = null;
-                for (let i = 0; i < sessions.length; i++){
-                    if (sessions[i].includes(ws)){
-                        session_id = sessions[i][0];
+                    console.log("sending message to python_client");
+                    move_data = data.slice(12, data.length);
+                    color_check = false;
+                    let session_id = null;
+                    turn_check = false
+                    for (let i = 0; i < sessions.length; i++){
+                        if (sessions[i].includes(ws)){
+                            session_id = sessions[i][0];
+                            index = sessions[i].indexOf(ws)
+                            console.log(turn_color, )
+                            if ((turn_color == "W" && index == 2) || (turn_color == "R" && index == 1))
+                                turn_check = true;
+                        }
                     }
-                }
-                python_client.send(`move_data${session_id},${move_data}`); // send move information to python    
+                    if (turn_check)
+                        python_client.send(`move_data${session_id},${move_data}`); // send move information to python    
             }
         }
 
@@ -63,6 +71,7 @@ wss.on("connection", ws => {
             let parts = data.split(",");
             let session_id = parts[0];
             let move_data = parts[1];  
+            turn_color = parts[2];
             for (let i = 0; i < sessions.length; i++){
                 if (sessions[i][0] == session_id){
                     console.log(`sending new state data to all clients (length:${clients.length})`);
