@@ -97,7 +97,7 @@ button:hover{
 }
 
 .selected{
-    opacity: 50%;
+    opacity: 65%;
 }
 .confirm-btn:hover{
     cursor: pointer;
