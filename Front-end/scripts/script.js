@@ -14,11 +14,11 @@ ws.addEventListener("message", ({data}) =>{
   }
 
   else if (data.slice(0, 5) == "white"){
-
+    swapped = false;
   }
 
   else if ((data.slice(0, 3) == "red")){
-    rotate_board()
+    swapped = true;
   }
 
   else if ((data.slice(0, 14) == "session_closed")){
@@ -27,8 +27,9 @@ ws.addEventListener("message", ({data}) =>{
   }
 })
 
-var selected = [];
-var command = "9";
+let selected = [];
+let command = "9";
+let swapped = false;
 
 // add/remove an element to selected lşst and change its class
 function select(elementid) {
@@ -77,6 +78,8 @@ function render(){
   render_empty()
   for (let i = 0; i < state.length / 3; i++){
     id = state[i*3] + state[i*3 + 1]
+    if (swapped)
+      id = id[0] + (8 - parseInt(id[1])).toString()
     color = state[i*3 + 2]
 
     element = document.getElementById(id)
@@ -90,7 +93,8 @@ function render(){
 function rotate_board(){
   all_elements = document.getElementsByTagName("button")
   for (let i = 0; i < all_elements.length; i++){
-    all_elements[i].id = all_elements[i].id[0] + (8 - parseInt(all_elements[i].id[1])).toString()
+    new_id = all_elements[i].id[0] + (8 - parseInt(all_elements[i].id[1])).toString()
+    all_elements[i].id = new_id
   }
 }
 
