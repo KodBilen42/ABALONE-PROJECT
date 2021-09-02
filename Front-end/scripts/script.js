@@ -20,6 +20,11 @@ ws.addEventListener("message", ({data}) =>{
   else if ((data.slice(0, 3) == "red")){
     rotate_board()
   }
+
+  else if ((data.slice(0, 14) == "session_closed")){
+    render_empty()
+    ws.send("session_request")
+  }
 })
 
 var selected = [];
@@ -61,12 +66,14 @@ function read_command(){
     selected = []
   }
 // Give the appropriate classes to the buttons according to server state data
-function render(){
+function render_empty(){
   all_elements = document.getElementsByTagName("button")
   for (let i = 0; i < all_elements.length; i++){
     all_elements[i].className = "circle grey"
   }
-
+}
+function render(){
+  render_empty()
   for (let i = 0; i < state.length / 3; i++){
     id = state[i*3] + state[i*3 + 1]
     color = state[i*3 + 2]

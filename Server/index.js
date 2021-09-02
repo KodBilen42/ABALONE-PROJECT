@@ -78,7 +78,11 @@ wss.on("connection", ws => {
         for (let i = 0; i < sessions.length; i++){
             if (sessions[i].includes(ws)){
                 python_client.send("session_close"+sessions[i][0])
-                sessions.pop(sessions)
+                console.log("informing every client that session is closed")
+                for (let j = 1; j < sessions[i].length; j++){
+                    sessions[i][j].send("session_closed");
+                }
+                sessions.pop(sessions[i])
             }
         }
         console.log("a user disconnected");
