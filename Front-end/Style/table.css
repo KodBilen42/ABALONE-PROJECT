@@ -17,19 +17,25 @@ html{
     }
 }
 body{
-    background: #2D2424;
+    background: #190404;
     display: flex;
+}
+.board{
+    width: 75%;
+    background: #1F1F1F;
+    margin: 0 auto;
+    display: flex;
+    justify-content: space-evenly;
 }
 .container{
     display: inline-block;
-    background: #402218;
-    margin-left: 20%;
+    background: #1F1F1F;
 }
 button{
     width: 5rem;
     height: 5rem;
     border-radius: 50%;
-    border: 0.15rem solid #c5a880;
+    border: 0.15rem solid #1F1F1F;
 }
 button:hover{
     border: 0.15rem solid #000;
@@ -58,20 +64,17 @@ button:hover{
 .nineth_line{
     margin-left: 10rem;
 }
-.red{
-    background: red;
+.circle{
+    background: #7F7F7F;
 }
-.grey{
-    background: #c5a880;
+.red{
+    background: linear-gradient(180deg, #BB1717 50%, rgba(187, 23, 23, 0.75) 100%);
 }
 .white{
-    background: white;
+    background: linear-gradient(180deg, #FFFFFF 50%, rgba(255, 255, 255, 0.7) 100%, rgba(255, 255, 255, 0.75) 100%);
 }
-button.red:focus{
-    border: 0.15rem solid #000;
-}
-button.white:focus{
-    border: 0.15rem solid #000;
+.circle:focus{
+    border: 0.2rem solid #000;
 }
 .textarea{
     font-size: 1.5rem;
@@ -80,13 +83,21 @@ button.white:focus{
     width: 10rem;
     height: 6rem;
 }
+#text{
+    font-size: 0.85rem;
+    text-align: center;
+    width: 10rem;
+    height: 3rem;
+    outline: none;
+    border: none;
+}
 .confirm-btn{
     font-size: 1rem;
     border: none;
 }
 
 .selected{
-    opacity: 70%;
+    opacity: 65%;
 }
 .confirm-btn:hover{
     cursor: pointer;

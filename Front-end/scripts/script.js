@@ -31,7 +31,7 @@ function select(elementid) {
 }
 
 function read_command(){
-    command = document.getElementById("textbox").value;
+    command = document.getElementById("text").value;
 
     let data_selected = [];
     for (let i = 0; i < selected.length; i++){
