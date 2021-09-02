@@ -48,10 +48,19 @@ function select(elementid) {
 // read move command and send a move_requets to server
 function read_command(){
     command = document.getElementById("text").value;
+    if (swapped){
+      command_changer = "452301"
+      command = command_changer[parseInt(command)]
+    }
+    
+
 
     let data_selected = [];
     for (let i = 0; i < selected.length; i++){
       selected_id = selected[i].id
+      if (swapped){
+        selected_id = selected_id[0] + (8 - parseInt(selected_id[1])).toString() 
+      }
       data_selected.push(selected_id)
     }
 
