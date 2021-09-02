@@ -26,6 +26,8 @@ wss.on("connection", ws => {
                 if (sessions[i].length == 2){
                     sessions[i].push(ws)
                     python_client.send(`session_start${sessions[i][0]}`)
+                    sessions[i][1].send("red")
+                    sessions[i][2].send("white")
                     found_session = true
                 }
             }

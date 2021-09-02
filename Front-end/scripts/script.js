@@ -6,17 +6,26 @@ state = "";
 ws.addEventListener("message", ({data}) =>{
   console.log(`server sent us ${data}`);
 
-  if ( data.slice(0, 4) == "data"){
+  if (data.slice(0, 4) == "data"){
     new_state = data.slice(4, data.length);
     console.log(`new state:${new_state}`);
     state = new_state;
     render()
+  }
+
+  else if (data.slice(0, 5) == "white"){
+
+  }
+
+  else if ((data.slice(0, 3) == "red")){
+    rotate_board()
   }
 })
 
 var selected = [];
 var command = "9";
 
+// add/remove an element to selected lşst and change its class
 function select(elementid) {
   if (selected.includes(document.getElementById(elementid))){
     selected.pop(document.getElementById(elementid));
@@ -29,7 +38,7 @@ function select(elementid) {
     console.log(elementid + " added")
   }
 }
-
+// read move command and send a move_requets to server
 function read_command(){
     command = document.getElementById("text").value;
 
@@ -51,9 +60,8 @@ function read_command(){
     ws.send(`move_request${data}`);
     selected = []
   }
-
+// Give the appropriate classes to the buttons according to server state data
 function render(){
-
   all_elements = document.getElementsByTagName("button")
   for (let i = 0; i < all_elements.length; i++){
     all_elements[i].className = "circle grey"
@@ -68,9 +76,16 @@ function render(){
       element.className = "circle white"
     if (color == "R")
       element.className = "circle red"
-
   }
 }
+
+function rotate_board(){
+  all_elements = document.getElementsByTagName("button")
+  for (let i = 0; i < all_elements.length; i++){
+    all_elements[i].id = all_elements[i].id[0] + (8 - parseInt(all_elements[i].id[1])).toString()
+  }
+}
+
 //Modal Box username check function
 function check(){
   let form  = document.forms["play-form"];
