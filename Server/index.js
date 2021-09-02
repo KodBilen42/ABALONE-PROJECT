@@ -17,7 +17,7 @@ wss.on("connection", ws => {
         if (data == "python connected"){ // verify python client
             console.log("client identified as python_client");
             python_client = ws;
-            clients.pop(ws);
+            clients.splice(clients.indexOf(ws));
         }
 
         else if(data == "session_request"){ // session request from browser
@@ -55,7 +55,7 @@ wss.on("connection", ws => {
             session_id = data.slice(10, data.length);
                 session_id = `${session_id}`;
                 sessions.push([session_id, session_requesters[0]]) // save session id
-                session_requesters.pop(session_requesters[0])
+                session_requesters.splice(session_requesters.indexOf(session_requesters[0]))
         }
 
         else if (ws == python_client && data.slice(0, 12) == "move_respond"){ // move respond info from python
@@ -74,7 +74,7 @@ wss.on("connection", ws => {
         }
     });
     ws.on("close", () => {
-        clients.pop(ws);
+        clients.splice(clients.indexOf(ws));
         for (let i = 0; i < sessions.length; i++){
             if (sessions[i].includes(ws)){
                 python_client.send("session_close"+sessions[i][0])
@@ -83,7 +83,7 @@ wss.on("connection", ws => {
                 for (let j = 1; j < sessions[i].length; j++){
                     sessions[i][j].send("session_closed");
                 }
-                sessions.pop(sessions[i])
+                sessions.splice(sessions.indexOf(sessions[i]))
             }
         }
         console.log("a user disconnected");
