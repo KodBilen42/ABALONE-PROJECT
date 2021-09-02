@@ -33,7 +33,9 @@ var command = "9";
 // add/remove an element to selected lşst and change its class
 function select(elementid) {
   if (selected.includes(document.getElementById(elementid))){
-    selected.pop(document.getElementById(elementid));
+    console.log(document.getElementById(elementid))
+    console.log(selected.indexOf(document.getElementById(elementid)))
+    selected.splice(selected.indexOf(document.getElementById(elementid)), 1);
     document.getElementById(elementid).className = document.getElementById(elementid).className.replace(" selected", "");
     console.log(elementid + " removed")
   }
@@ -42,6 +44,7 @@ function select(elementid) {
     document.getElementById(elementid).className += " selected";
     console.log(elementid + " added")
   }
+  console.log(selected)
 }
 // read move command and send a move_requets to server
 function read_command(){
