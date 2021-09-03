@@ -1,4 +1,4 @@
-const ws = new WebSocket("ws://localhost:5500");
+const ws = new WebSocket("ws://192.168.1.20:5500");
 ws.addEventListener("open", ()=>{
   ws.send("session_request")
 })

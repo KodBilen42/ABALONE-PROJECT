@@ -6,9 +6,10 @@ sessions = [];
 python_client = null;
 session_requesters = []
 turn_color = null;
-wss.on("connection", ws => {
+wss.on("connection", function connection(ws, req){
+    const client_ip = req.socket.remoteAddress;
     clients.push(ws);
-    console.log("a user connected");
+    console.log(`a user connected ip:${client_ip}`);
     ws.send("welcome");
 
     ws.on("message", data  =>{
@@ -44,7 +45,7 @@ wss.on("connection", ws => {
                     move_data = data.slice(12, data.length);
                     color_check = false;
                     let session_id = null;
-                    turn_check = false
+                    turn_check = false;
                     for (let i = 0; i < sessions.length; i++){
                         if (sessions[i].includes(ws)){
                             session_id = sessions[i][0];
