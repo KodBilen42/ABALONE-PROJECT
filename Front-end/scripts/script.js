@@ -1,4 +1,4 @@
-const ws = new WebSocket("ws://192.168.1.20:5500");
+const ws = new WebSocket("ws://localhost:5500");
 ws.addEventListener("open", ()=>{
   ws.send("session_request")
 })
@@ -31,20 +31,7 @@ let selected = [];
 let command = "9";
 let swapped = false;
 
-// add/remove an element to selected lşst and change its class
-function select(elementid) {
-  if (selected.includes(document.getElementById(elementid))){
-    selected.splice(selected.indexOf(document.getElementById(elementid)), 1);
-    document.getElementById(elementid).className = document.getElementById(elementid).className.replace(" selected", "");
-    console.log(elementid + " removed")
-  }
-  else{
-    selected.push(document.getElementById(elementid));
-    document.getElementById(elementid).className += " selected";
-    console.log(elementid + " added")
-  }
-  console.log(selected)
-}
+
 // read move command and send a move_requets to server
 function read_command(){
     command = document.getElementById("text").value;
@@ -74,6 +61,7 @@ function read_command(){
     ws.send(`move_request${data}`);
     selected = []
   }
+
 // Give the appropriate classes to the buttons according to server state data
 function render_empty(){
   all_elements = document.getElementsByTagName("button")
@@ -81,6 +69,7 @@ function render_empty(){
     all_elements[i].className = "circle grey"
   }
 }
+
 function render(){
   render_empty()
   for (let i = 0; i < state.length / 3; i++){
@@ -115,4 +104,31 @@ function check(){
       return(false);
   }
   return(true);
+}
+
+function select(element) {
+  if (selected.includes(element)){
+    selected.splice(selected.indexOf(element), 1);
+    element.className = element.className.replace(" selected_red", "");
+    element.className = element.className.replace(" selected_white", "");
+    console.log(element.id + " removed")
+  }
+  else{
+    selected.push(element);
+    if (element.className.includes("red"))
+     element.className += " selected_red";
+    else if (element.className.includes("white"))
+      element.className += " selected_white";
+    console.log(element.id + " added")
+  }
+  console.log(selected)
+}
+
+function hover(element){
+
+}
+
+function hover_end(element){
+  element.className = element.className.replace(" preview_red", "");
+  element.className = element.className.replace(" preview_white", "");
 }

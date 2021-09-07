@@ -73,9 +73,33 @@ button:hover{
 .white{
     background: linear-gradient(180deg, #FFFFFF 50%, rgba(255, 255, 255, 0.7) 100%, rgba(255, 255, 255, 0.75) 100%);
 }
+
+/* hover effects */
+/*
 .circle:focus{
     border: 0.2rem solid #000;
 }
+*/
+
+.selected_white{
+    background: #E0CC65; 
+}
+
+.preview_white{
+    border: 0.8rem solid #DEDEDE ;
+    
+}
+
+.selected_red{
+    background: #6F1C1C;
+}
+
+.preview_red{
+    border: 0.8rem solid #BB1717;
+}
+
+/*hover effects end*/
+
 .textarea{
     font-size: 1.5rem;
     background: #2D2424;
