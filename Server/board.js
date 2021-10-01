@@ -160,5 +160,51 @@ class Board{
         let opposite_direction = 5 - direction_index
         return opposite_direction
     }
-    
+ 
+    is_backed(ball, direction){
+        let ball_borders = this.find_borders(ball)
+        let attacking_ball = this.find_ball_by_position(ball_borders[direction])
+        if (this.find_ball_by_position(ball_borders[direction]) in this.balls)
+            return attacking_ball
+        else
+            return false
+    }
+
+    find_force(ball, direction, attacking_color){
+        let behind = ball
+        force = 0
+        while(true){
+            behind = this.find_ball_by_position(ball)
+            if(!ball)
+                break
+            ball = self.find_ball_by_position(ball)
+            if(ball == null)
+                return 0
+            if(behind[2] != attacking_color)
+                force += 1
+            else if(behind[2] == attacking_color)
+                force = 9
+        }
+        force += 1
+        return force
+    }
+
+    find_head(balls, direction){
+        let block_direction = this.block_check(balls)
+        if(block_direction === false){
+            console.log("find_head failed (block ckeck fail)")
+            return false
+        }
+        if(block_direction == direction || block_direction == this.opposite_direction(direction)){
+            for(let i = 0; i < balls.length; i++){
+                let ball = balls[i]
+                borders = this.find_borders(ball)
+                if(!(this.find_ball_by_position(borders[direction] in balls)))
+                    return ball
+            }
+        }
+        else
+            return null
+    }
+
 }
