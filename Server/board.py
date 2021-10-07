@@ -31,6 +31,8 @@ class Board:
             return False
         elif x >= len(self.board[y]):
             return False
+        elif x < 0 or y < 0:
+            return False
         else:
             return True
 
@@ -75,6 +77,8 @@ class Board:
         for border in borders:
             x, y = border
             if y > 8:
+                final_borders.append(None)
+            elif y < 0 or x < 0:
                 final_borders.append(None)
             elif x >= len(self.board[y]):
                 final_borders.append(None)
@@ -322,3 +326,8 @@ class Board:
             data = id_data + ball[2]
             data_pack += data
         return "data" + data_pack, self.turn
+
+
+myboard = Board()
+myboard.initialize_board()
+print( myboard.find_border_direction([0, 0], [1, 0]))

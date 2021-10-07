@@ -20,7 +20,7 @@
     <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
   </component>
-  <component name="RunManager" selected="Python.python_client">
+  <component name="RunManager" selected="Python.board">
     <configuration name="board" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
       <module name="ABALONE-PROJECT" />
       <option name="INTERPRETER_OPTIONS" value="" />
@@ -65,8 +65,8 @@
     </configuration>
     <recent_temporary>
       <list>
-        <item itemvalue="Python.python_client" />
         <item itemvalue="Python.board" />
+        <item itemvalue="Python.python_client" />
       </list>
     </recent_temporary>
   </component>
