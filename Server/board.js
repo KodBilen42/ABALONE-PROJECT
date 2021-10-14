@@ -17,16 +17,40 @@
 //3 find_borders                    XX
 //4 find_border_direction           XX
 //5 opposite_direction              XX
-//6 find_force                      X
-//7 find_head                       X
-//8 block_check                     X
-//9 border_check                    X
-//10 direction_check                X
-//11 force_check                    X
+//6 find_force                      XX
+//7 find_head                       XX
+//8 block_check                     XX
+//9 border_check                    XX
+//10 direction_check                XX
+//11 force_check                    XX
 //12 turn_color_check               X
 //13 push                           X
 //14 move                           X
 
+function present(array, element){
+    for ( let i = 0; i < array.length; i++){
+        if (array_equal(array[i], element)){
+            return true;
+        }
+    }
+    return false
+}
+
+function array_equal(array_a, array_b){
+    if ( array_a == null || array_b == null){
+        return false
+    }
+    else if (array_a.length != array_b.length){
+        return false;
+    }
+    else{
+        for(let i = 0; i < array_a.length; i++){
+            if (array_a[i] != array_b[i])
+                return false
+        }
+        return true
+    }    
+}
 
 class Board{
 
@@ -112,20 +136,20 @@ class Board{
         }
         let borders
         if(y < 4){
-            borders = [[x - 1, y - 1], [x, y - 1],
-                       [x - 1, y], [x + 1, y],
-                       [x, y + 1], [x + 1, y + 1]]
-        }
+            borders = [[x, y + 1], [x + 1, y + 1],
+                      [x - 1, y], [x + 1, y],
+                      [x - 1, y - 1], [x, y - 1]]
+}
         else if(y == 4){
-            borders = [[x - 1, y - 1], [x, y - 1],
+            borders = [[x - 1, y + 1], [x, y + 1],
                        [x - 1, y], [x + 1, y],
-                       [x - 1, y + 1], [x, y + 1]]
-        }
+                       [x - 1, y - 1], [x, y - 1]]
+}
         else if(y > 4){
-            borders = [[x, y - 1], [x + 1, y - 1],
+            borders = [[x - 1, y + 1], [x, y + 1],
                        [x - 1, y], [x + 1, y],
-                       [x - 1, y + 1], [x, y + 1]]
-        }
+                       [x, y - 1], [x + 1, y - 1]]
+}
         let final_borders = []
         for(let i = 0; i < borders.length; i++){
             x = borders[i][0]
@@ -134,9 +158,9 @@ class Board{
                 final_borders.push(null)
             else if( y < 0 || x < 0)
                 final_borders.push(null)
-            else if(x >= this.board[y].length)
-                final_borders.push(null)
             else if(x < 0 || y < 0)
+                final_borders.push(null)
+            else if(x >= this.board[y].length)
                 final_borders.push(null)
             else
                 final_borders.push(borders[i])
@@ -187,21 +211,22 @@ class Board{
     is_backed(ball, direction){
         let ball_borders = this.find_borders(ball)
         let attacking_ball = this.find_ball_by_position(ball_borders[direction])
-        if (this.find_ball_by_position(ball_borders[direction]) in this.balls)
+        if (this.balls.includes(this.find_ball_by_position(ball_borders[direction])))
             return attacking_ball
         else
             return false
     }
 
     find_force(ball, direction, attacking_color){
+        
         let behind = ball
-        force = 0
+        let force = 0
         while(true){
-            behind = this.find_ball_by_position(ball)
-            if(!ball)
+            behind = this.is_backed(behind, direction)
+            if(!behind)
                 break
-            ball = self.find_ball_by_position(ball)
-            if(ball == null)
+            ball = this.find_ball_by_position(ball)
+            if(ball === null)
                 return 0
             if(behind[2] != attacking_color)
                 force += 1
@@ -211,7 +236,7 @@ class Board{
         force += 1
         return force
     }
-
+    
     find_head(balls, direction){
         let block_direction = this.block_check(balls)
         if(block_direction === false){
@@ -221,9 +246,10 @@ class Board{
         if(block_direction == direction || block_direction == this.opposite_direction(direction)){
             for(let i = 0; i < balls.length; i++){
                 let ball = balls[i]
-                borders = this.find_borders(ball)
-                if(!(balls.includes(this.find_ball_by_position(borders[direction]))))
+                let borders = this.find_borders(ball)
+                if(!(present(balls, this.find_ball_by_position(borders[direction])))){
                     return ball
+                }
             }
         }
         else
@@ -249,9 +275,10 @@ class Board{
         }
         
         let first_detected_direction = null
+        let direction;
         for(let j = 0; j < balls.length; j++){
             let ball = balls[j]
-            let directon = null
+            direction = null
             let ball_borders = this.find_borders(ball)
             for(let i = 0; i < ball_borders.length; i++){
                 let ball_border = ball_borders[i]
@@ -260,9 +287,9 @@ class Board{
                 else if(this.find_ball_by_position([ball_border[0], ball_border[1]], balls) !== null){
                     direction = i
                     if(first_detected_direction === null)
-                        first_detected_direction = directon
+                        first_detected_direction = direction
                     else{
-                        if(directon != first_detected_direction && directon != this.opposite_direction(first_detected_direction)){
+                        if(direction != first_detected_direction && direction != this.opposite_direction(first_detected_direction)){
                             console.log("linearity test failed (linearity couldn't proven)")
                             return false
                         }
@@ -304,7 +331,7 @@ class Board{
 
     force_check(balls, direction){
         if( this.direction_check(balls, direction)){
-            let head = self.find_head(balls, direction)
+            let head = this.find_head(balls, direction)
             if( head !== null && head !== false){
                 let attacking_position = this.find_borders(head)[direction]
                 let defending_force = this.find_force(attacking_position, direction, head[2])
@@ -412,4 +439,4 @@ class Board{
 
 let myboard = new Board()
 myboard.initialize_board(state = "00R10R20R30R40R01R11R21R31R41R51R22R32R42R26W36W46W07W17W27W37W47W57W08W18W28W38W48W")
-console.log( myboard.opposite_direction(5))
+console.log( myboard.force_check([[0,0,"R"], [1, 1, "R"], [2, 2, "R"]], 1))

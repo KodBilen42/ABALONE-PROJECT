@@ -59,19 +59,19 @@ class Board:
         elif len(ball) == 3:
             x, y, _ = ball
         if y < 4:
-            borders = [[x - 1, y - 1], [x, y - 1],
+            borders = [[x, y + 1], [x + 1, y + 1],
                        [x - 1, y], [x + 1, y],
-                       [x, y + 1], [x + 1, y + 1]]
+                       [x - 1, y - 1], [x, y - 1]]
 
         elif y == 4:
-            borders = [[x - 1, y - 1], [x, y - 1],
+            borders = [[x - 1, y + 1], [x, y + 1],
                        [x - 1, y], [x + 1, y],
-                       [x - 1, y + 1], [x, y + 1]]
+                       [x - 1, y - 1], [x, y - 1]]
 
         elif y > 4:
-            borders = [[x, y - 1], [x + 1, y - 1],
+            borders = [[x - 1, y + 1], [x, y + 1],
                        [x - 1, y], [x + 1, y],
-                       [x - 1, y + 1], [x, y + 1]]
+                       [x, y - 1], [x + 1, y - 1]]
 
         final_borders = []
         for border in borders:
@@ -124,19 +124,21 @@ class Board:
         opposite_direction = 5 - direction_index
         return opposite_direction
 
+    def is_backed(self, ball, direction):
+        ball_borders = self.find_borders(ball)
+        attacking_ball = self.find_ball_by_position(ball_borders[direction])
+        if self.find_ball_by_position(ball_borders[direction]) in self.balls:
+            return attacking_ball
+        else:
+            return False
+
     def find_force(self, ball, direction, attacking_color):
-        def is_backed(ball, direction):
-            ball_borders = self.find_borders(ball)
-            attacking_ball = self.find_ball_by_position(ball_borders[direction])
-            if self.find_ball_by_position(ball_borders[direction]) in self.balls:
-                return attacking_ball
-            else:
-                return False
 
         behind = ball
         force = 0
         while True:
-            behind = is_backed(behind, direction)
+            print(behind)
+            behind = self.is_backed(behind, direction)
             if not behind:
                 break
             ball = self.find_ball_by_position(ball)
@@ -223,6 +225,7 @@ class Board:
     def force_check(self, balls, direction):
         if self.direction_check(balls, direction):
             head = self.find_head(balls, direction)
+            print(head);
             if head is not None and head is not False:
                 attacking_position = self.find_borders(head)[direction]
                 defending_force = self.find_force(attacking_position, direction, head[2])
@@ -330,4 +333,4 @@ class Board:
 
 myboard = Board()
 myboard.initialize_board()
-print( myboard.find_border_direction([0, 0], [1, 0]))
+print( myboard.force_check([[0,0,"R"], [1, 1, "R"], [2, 2, "R"]], 1))
