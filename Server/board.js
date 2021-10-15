@@ -23,10 +23,13 @@
 //9 border_check                    XX
 //10 direction_check                XX
 //11 force_check                    XX
-//12 turn_color_check               X
+//12 turn_color_check               XX
 //13 push                           X
 //14 move                           X
 
+//define display functions to be able to check move and push functions XX
+
+//js only function
 function present(array, element){
     for ( let i = 0; i < array.length; i++){
         if (array_equal(array[i], element)){
@@ -35,7 +38,18 @@ function present(array, element){
     }
     return false
 }
+//js only function
+function array_location(array, element){
+    if (present(array, element)){
+        for (let i = 0; i < array.length; i++){
+            if( array_equal(array[i], element))
+                return i
+        }
+    }
+    return null
+}
 
+//js only function
 function array_equal(array_a, array_b){
     if ( array_a == null || array_b == null){
         return false
@@ -77,7 +91,7 @@ class Board{
             let x = parseInt(id[0])
             let y = parseInt(id[1])
 
-            this.board[y][x] = color
+            //this.board[y][x] = color
             this.balls.push([x, y, color])
         }
     }
@@ -96,7 +110,7 @@ class Board{
         else if( x < 0 || y < 0)
             return false
         else
-            return true        
+            return true
     }
 
     find_ball_by_position(target_ball, balls=null){
@@ -136,19 +150,19 @@ class Board{
         }
         let borders
         if(y < 4){
-            borders = [[x, y + 1], [x + 1, y + 1],
-                      [x - 1, y], [x + 1, y],
-                      [x - 1, y - 1], [x, y - 1]]
+            borders = [[x - 1, y - 1], [x, y - 1],
+                       [x - 1, y], [x + 1, y],
+                       [x, y + 1], [x + 1, y + 1]]
 }
         else if(y == 4){
-            borders = [[x - 1, y + 1], [x, y + 1],
+            borders = [[x - 1, y - 1], [x, y - 1],
                        [x - 1, y], [x + 1, y],
-                       [x - 1, y - 1], [x, y - 1]]
+                       [x - 1, y + 1], [x, y + 1]]
 }
         else if(y > 4){
-            borders = [[x - 1, y + 1], [x, y + 1],
+            borders = [[x, y - 1], [x + 1, y - 1],
                        [x - 1, y], [x + 1, y],
-                       [x, y - 1], [x + 1, y - 1]]
+                       [x - 1, y + 1], [x, y + 1]]
 }
         let final_borders = []
         for(let i = 0; i < borders.length; i++){
@@ -169,11 +183,24 @@ class Board{
     }
 
     display(){
-        //______________
+
+        for(let y = 0; y < this.board.length; y++){
+            let line = " ".repeat(Math.abs(4 - y))
+            for (let x of this.board[y]){
+                if (present(this.balls, [x, y, "R"]))
+                    line += 'R' + ' '
+                else if (present(this.balls, [x, y, "W"]))
+                    line += 'W' + ' '
+                else
+                    line += x + ' '
+            }
+            console.log(line)
+        }
+        console.log(this.turn)
     }
 
     _display_borders(){
-        //_______________
+        //______________
     }
 
     //js only function
@@ -211,7 +238,7 @@ class Board{
     is_backed(ball, direction){
         let ball_borders = this.find_borders(ball)
         let attacking_ball = this.find_ball_by_position(ball_borders[direction])
-        if (this.balls.includes(this.find_ball_by_position(ball_borders[direction])))
+        if ( presnet(this.balls, this.find_ball_by_position(ball_borders[direction])))
             return attacking_ball
         else
             return false
@@ -346,7 +373,7 @@ class Board{
                 let ball = balls[i]
                 let borders = this.find_borders(ball)
                 let moving_position = borders[direction]
-                if( this.balls.includes(this.find_ball_by_position(moving_position))){
+                if( present(this.balls, this.find_ball_by_position(moving_position))){
                     console.log("force check (barricated")
                     return false
                 }
@@ -362,7 +389,7 @@ class Board{
         }
         for( let i = 0; i < balls.length; i++){
             let ball = balls[i]
-            if(!(this.balls.includes(ball))){
+            if(!(present(this.balls, ball))){
                 console.log("input error")
                 return false
             }
@@ -372,7 +399,7 @@ class Board{
 
     turn_color_check(balls){
         let color = null
-        for(let i = 0; i < balls; i++){
+        for(let i = 0; i < balls.length; i++){
             let ball = balls[i]
             if(color === null)
                 color = ball[2]
@@ -422,10 +449,10 @@ class Board{
             let borders = this.find_borders(ball)
             let moving_position = borders[direction]
             let moving_ball = this.find_ball_by_position(moving_position)
-            if( moving_ball !== null && !balls.includes(moving_ball))
+            if( moving_ball !== null && ! present(balls, moving_ball))
                 this.push(moving_ball, direction)
-            this.balls.splice(balls.indexOf(ball), 1)
-            moving_position.push(balls[2])
+            this.balls.splice(array_location(this.balls, ball), 1)
+            moving_position.push(ball[2])
             this.balls.push(moving_position)
         }
         
@@ -439,4 +466,6 @@ class Board{
 
 let myboard = new Board()
 myboard.initialize_board(state = "00R10R20R30R40R01R11R21R31R41R51R22R32R42R26W36W46W07W17W27W37W47W57W08W18W28W38W48W")
-console.log( myboard.force_check([[0,0,"R"], [1, 1, "R"], [2, 2, "R"]], 1))
+myboard.display()
+myboard.move([[2, 2, "R"]], 5)
+myboard.display()

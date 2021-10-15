@@ -6,6 +6,7 @@ sessions = [];
 python_client = null;
 session_requesters = []
 turn_color = null;
+
 wss.on("connection", function connection(ws, req){
     const client_ip = req.socket.remoteAddress;
     clients.push(ws);
