@@ -105,7 +105,7 @@ function check(){
   }
   return(true);
 }
-
+//selected function
 function select(element) {
   if (selected.includes(element)){
     selected.splice(selected.indexOf(element), 1);
@@ -121,14 +121,36 @@ function select(element) {
       element.className += " selected_white";
     console.log(element.id + " added")
   }
-  console.log(selected)
+  console.log(selected);
+  idcalculator(element)
 }
-
+//hover function
 function hover(element){
+  if(element.className.includes( "red"))
+  element.className += " w_border";
+  else if(element.className.includes("white"))
+  element.className += " r_border";
 
 }
 
+//hover_end function
 function hover_end(element){
-  element.className = element.className.replace(" preview_red", "");
-  element.className = element.className.replace(" preview_white", "");
+  element.className = element.className.replace(" r_border", "");
+  element.className = element.className.replace(" w_border", "");
+}
+
+function idcalculator(element){
+  let id1 = Number(element.id) + 1;
+  let id2 = Number(element.id) + 10;
+  let id3 = Number(element.id) + 11;
+  let id4 = Number(element.id) - 1;
+  let id5 = Number(element.id) - 10;
+  let id6 = Number(element.id) -11;
+  let ids = [id1,id2,id3,id4,id5,id6]
+  for (let i = 0; i < ids.length; i++) {
+    let checkId = document.getElementById(ids[i]);
+    if (checkId.className.includes("grey")) {
+      console.log(ids[i])
+    }
+  }
 }

@@ -20,20 +20,28 @@ body{
     background: #190404;
     display: flex;
 }
+.logo{
+    margin-top: 10px;
+    margin-left: 10px;
+}
 .board{
-    width: 75%;
-    background: #1F1F1F;
-    margin: 0 auto;
-    display: flex;
-    justify-content: space-evenly;
+    background: url(/Front-end/board_bg.svg) no-repeat;
+    width: 59%;
+    height: 950px;
+}
+.circles{
+    margin-right: 1%;
+    margin-top: 0.67%;
 }
 .container{
-    display: inline-block;
-    background: #1F1F1F;
+    width: 85%;
+    margin-top: 25px;
+    display: flex;
+    justify-content: space-between;
 }
 button{
-    width: 5rem;
-    height: 5rem;
+    width: 4.5rem;
+    height: 4.5rem;
     border-radius: 50%;
     border: 0.4rem solid #1F1F1F;
 }
@@ -42,28 +50,58 @@ button:hover{
     border: 0.15rem solid #000;
 }*/
 .fourth_line{
-    margin-left: 2.5rem;
+    display: flex;
+    justify-content: space-evenly;
+    width: 810px;
+    margin: 0 auto;
 }
 .third_line{
-    margin-left: 5rem;
+    display: flex;
+    justify-content: space-evenly;
+    width: 710px;
+    margin: 0 auto;
 }
 .second_line{
-    margin-left: 7.5rem;
+    display: flex;
+    justify-content: space-evenly;
+    width: 610px;
+    margin: 0 auto;
 }
 .first_line{
-    margin-left: 10rem;
+    margin: 0 auto;
+    justify-content: space-evenly;
+    display: flex;
+    width: 510px;
+}
+.fifth_line{
+    margin: 0 auto;
+    justify-content: space-evenly;
+    display: flex;
+    width: 910px;
 }
 .sixth_line{
-    margin-left: 2.5rem;
+    display: flex;
+    justify-content: space-evenly;
+    width: 810px;
+    margin: 0 auto;
 }
 .seventh_line{
-    margin-left: 5rem;
+    display: flex;
+    justify-content: space-evenly;
+    width: 710px;
+    margin: 0 auto;
 }
 .eighth_line{
-    margin-left: 7.5rem;
+    display: flex;
+    justify-content: space-evenly;
+    width: 610px;
+    margin: 0 auto;
 }
 .nineth_line{
-    margin-left: 10rem;
+    margin: 0 auto;
+    justify-content: space-evenly;
+    display: flex;
+    width: 510px;
 }
 .circle{
     background: #7F7F7F;
@@ -103,10 +141,10 @@ button:hover{
 /*hover effects end*/
 
  /* new hover effects */
-.white_border{
+.w_border{
     border: 0.4rem solid #DEDEDE;
 }
-.red_border{
+.r_border{
     border: 0.4rem solid #BB1717;
 }
 .selected_white{
@@ -131,18 +169,32 @@ button:hover{
     outline: none;
     border: none;
 }
-.submit{
-    font-size: 1rem;
-    border: none;
-    outline: none;
-    height: 3rem;
-    width: 5rem;
-    border-radius: 10px;
-}
-
 .selected{
     opacity: 65%;
 }
-.confirm-btn:hover{
-    cursor: pointer;
+.right_side{
+    color: #FFFFFF;
+    font-size: 1rem;
+    font-weight: bold;
+    display: grid;
+    grid-column: auto;
+    width: 25%;
+}
+.chat{
+    width: 50%;
+    margin: auto;
+    
+}
+.player{
+    text-align: center;
+    font-weight: bold;
+    font-size: 1.5rem;
+}
+.p1timer{
+    height: 40%;
+    background: blue;
+}
+.p2timer{
+    height: 40%;
+    background: green;
 }
