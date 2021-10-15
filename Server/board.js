@@ -185,7 +185,7 @@ class Board{
     display(){
 
         for(let y = 0; y < this.board.length; y++){
-            let line = " ".repeat(Math.abs(4 - y))
+            let line = y + " ".repeat(Math.abs(4 - y) + 2)
             for (let x of this.board[y]){
                 if (present(this.balls, [x, y, "R"]))
                     line += 'R' + ' '
@@ -238,7 +238,7 @@ class Board{
     is_backed(ball, direction){
         let ball_borders = this.find_borders(ball)
         let attacking_ball = this.find_ball_by_position(ball_borders[direction])
-        if ( presnet(this.balls, this.find_ball_by_position(ball_borders[direction])))
+        if ( present(this.balls, this.find_ball_by_position(ball_borders[direction])))
             return attacking_ball
         else
             return false
@@ -422,7 +422,7 @@ class Board{
         let moving_position = borders[direction]
         if( this.find_ball_by_position(moving_position) !== null)
             this.push(this.find_ball_by_position(moving_position), direction)
-        this.balls.remove(ball)
+        this.balls.splice(array_location(this.balls, ball), 1)
         if( moving_position === null)
             return new ["pushed", ball]
         if( this.is_position_in_range(moving_position)){
@@ -467,5 +467,11 @@ class Board{
 let myboard = new Board()
 myboard.initialize_board(state = "00R10R20R30R40R01R11R21R31R41R51R22R32R42R26W36W46W07W17W27W37W47W57W08W18W28W38W48W")
 myboard.display()
-myboard.move([[2, 2, "R"]], 5)
+myboard.move([[2, 2, "R"], [1, 1, "R"], [0, 0, "R"]], 5)
+myboard.display()
+myboard.move([[2, 6, "W"], [1, 7, "W"], [0, 8, "W"]], 1)
+myboard.display()
+myboard.move([[3, 3, "R"], [2, 2, "R"], [1, 1, "R"]], 5)
+myboard.display()
+myboard.move([[3, 5, "W"], [2, 6, "W"], [1, 7, "W"]], 1)
 myboard.display()
