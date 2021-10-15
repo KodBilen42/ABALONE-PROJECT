@@ -24,8 +24,10 @@
 //10 direction_check                XX
 //11 force_check                    XX
 //12 turn_color_check               XX
-//13 push                           X
-//14 move                           X
+//13 push                           XX
+//14 move                           XX
+
+//15 return_data                    XX
 
 //define display functions to be able to check move and push functions XX
 
@@ -461,6 +463,16 @@ class Board{
         else if( this.turn == "R")
             this.turn = "W"
 
+    }
+
+    return_data(){
+        let data_pack = ""
+        for( let ball of this.balls){
+            let id_data = String(ball[0]) + String(ball[1])
+            let data = id_data + ball[2]
+            data_pack += data
+        }
+        return "data" + data_pack
     }
 }
 
