@@ -32,6 +32,11 @@
     <property name="node.js.selected.package.tslint" value="(autodetect)" />
     <property name="vue.rearranger.settings.migration" value="true" />
   </component>
+  <component name="RecentsManager">
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="C:\Users\unsal\Desktop\ABALONE-PROJECT\Temporary Python Files" />
+    </key>
+  </component>
   <component name="RunManager" selected="Node.js.index.js">
     <configuration name="board.js" type="NodeJSConfigurationType" temporary="true" nameIsGenerated="true" path-to-js-file="$PROJECT_DIR$/Server/board.js" working-dir="$PROJECT_DIR$/Server">
       <method v="2" />
@@ -118,7 +123,7 @@
       <option name="presentableId" value="Default" />
       <updated>1630610708840</updated>
       <workItem from="1634335091961" duration="6067000" />
-      <workItem from="1634375305116" duration="7812000" />
+      <workItem from="1634375305116" duration="8886000" />
     </task>
     <servers />
   </component>
