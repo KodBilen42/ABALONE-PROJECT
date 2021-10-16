@@ -8,14 +8,7 @@ html{
     scroll-behavior: smooth;
     font-size: 20px;
 }
-@media (max-width: 1500px) {
-    html{
-        font-size: 16px;
-    }
-    button{
-        border: 0.1875rem solid #c5a880;
-    }
-}
+
 body{
     background: #190404;
     display: flex;
@@ -140,20 +133,6 @@ button:hover{
 
 /*hover effects end*/
 
- /* new hover effects */
-.w_border{
-    border: 0.4rem solid #DEDEDE;
-}
-.r_border{
-    border: 0.4rem solid #BB1717;
-}
-.selected_white{
-    background: #E0CC65;
-}
-.selected_red{
-    background: #6F1C1C;
-}
-
 .textarea{
     font-size: 1.5rem;
     background: #2D2424;
@@ -176,13 +155,17 @@ button:hover{
     color: #FFFFFF;
     font-size: 1rem;
     font-weight: bold;
-    display: grid;
+    display: flex;
+    flex-direction: column;
     grid-column: auto;
     width: 25%;
+    justify-content: space-evenly;
+}
+.timer{
+    height: 25%;
 }
 .chat{
     width: 50%;
-    margin: auto;
     
 }
 .player{
@@ -191,10 +174,84 @@ button:hover{
     font-size: 1.5rem;
 }
 .p1timer{
-    height: 40%;
+    height: 80%;
     background: blue;
 }
 .p2timer{
-    height: 40%;
+    height: 80%;
     background: green;
+}
+@media (max-width:1750px) {
+    html{
+        font-size: 16px;
+    }
+    .board{
+        width: 100%;
+        background: url(/Front-end/board_bg2.svg) no-repeat;
+        background-size: 85%;
+    }
+    .circles{
+        margin-top: 1.5%;
+        margin-right: 15%;
+    }
+}
+@media (max-width: 1500px) {
+    html{
+        font-size: 12px;
+    }
+    button{
+        border: 0.2rem solid #1F1F1F;
+    }
+    .chat{
+        font-size: 16px;
+        height: 40%;
+    }
+    .right_side{
+        height: 80%;
+        width: 30%;
+    }
+    .timer{
+        height: 30%;
+    }
+    .p1timer{
+        height: 70%;
+    }
+    .p2timer{
+        height: 70%;
+    }
+    .board{
+        width: 100%;
+        background: url(/Front-end/board_bg2.svg) no-repeat;
+        background-size: 100%;
+    }
+    .circles{
+        height: 100%;
+        margin-top: 2.5%;
+        margin-left: 0.5%;
+    }
+    .circle{
+        margin-bottom: 18px;
+    }
+    .logo{
+        width: 10%;
+    }
+    .logo img{
+        width: 100%;
+    }
+    .container{
+        width: 88%;
+    }
+}
+/* new hover effects */
+.w_border{
+    border: 0.4rem solid #DEDEDE;
+}
+.r_border{
+    border: 0.4rem solid #BB1717;
+}
+.selected_white{
+    background: #E0CC65;
+}
+.selected_red{
+    background: #6F1C1C;
 }
