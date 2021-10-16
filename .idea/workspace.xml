@@ -23,6 +23,8 @@
     <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
+    <property name="javascript.nodejs.core.library.configured.version" value="14.17.5" />
+    <property name="javascript.nodejs.core.library.typings.version" value="14.17.5" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$" />
     <property name="node.js.detected.package.eslint" value="true" />
     <property name="node.js.detected.package.tslint" value="true" />
@@ -30,8 +32,11 @@
     <property name="node.js.selected.package.tslint" value="(autodetect)" />
     <property name="vue.rearranger.settings.migration" value="true" />
   </component>
-  <component name="RunManager" selected="Node.js.board.js">
+  <component name="RunManager" selected="Node.js.index.js">
     <configuration name="board.js" type="NodeJSConfigurationType" temporary="true" nameIsGenerated="true" path-to-js-file="$PROJECT_DIR$/Server/board.js" working-dir="$PROJECT_DIR$/Server">
+      <method v="2" />
+    </configuration>
+    <configuration name="index.js" type="NodeJSConfigurationType" temporary="true" nameIsGenerated="true" path-to-js-file="$PROJECT_DIR$/Server/index.js" working-dir="$PROJECT_DIR$/Server">
       <method v="2" />
     </configuration>
     <configuration name="board" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
@@ -99,6 +104,7 @@
     </configuration>
     <recent_temporary>
       <list>
+        <item itemvalue="Node.js.index.js" />
         <item itemvalue="Node.js.board.js" />
       </list>
     </recent_temporary>
@@ -111,7 +117,8 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1630610708840</updated>
-      <workItem from="1634335091961" duration="2921000" />
+      <workItem from="1634335091961" duration="6067000" />
+      <workItem from="1634375305116" duration="7812000" />
     </task>
     <servers />
   </component>

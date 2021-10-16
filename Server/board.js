@@ -84,7 +84,7 @@ class Board{
         }
     }
     
-    initialize_board(state, swapped){
+    initialize_board(state="00R10R20R30R40R01R11R21R31R41R51R22R32R42R26W36W46W07W17W27W37W47W57W08W18W28W38W48W", swapped){
         for (let i = 0; i < state.length / 3; i++){
             let id = state[i*3] + state[i*3 + 1]
             if (swapped)
@@ -472,10 +472,15 @@ class Board{
             let data = id_data + ball[2]
             data_pack += data
         }
-        return "data" + data_pack
+        return ["data" + data_pack, this.turn]
     }
 }
 
+module.exports ={
+    Board
+}
+
+/*
 let myboard = new Board()
 myboard.initialize_board(state = "00R10R20R30R40R01R11R21R31R41R51R22R32R42R26W36W46W07W17W27W37W47W57W08W18W28W38W48W")
 myboard.display()
@@ -487,3 +492,5 @@ myboard.move([[3, 3, "R"], [2, 2, "R"], [1, 1, "R"]], 5)
 myboard.display()
 myboard.move([[3, 5, "W"], [2, 6, "W"], [1, 7, "W"]], 1)
 myboard.display()
+*/
+

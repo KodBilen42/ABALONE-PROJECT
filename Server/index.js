@@ -1,11 +1,35 @@
+const b = require("./board")
 const WebSocket = require("ws");
 
 const wss = new WebSocket.Server({ port: 5500 });
 clients = [];
 sessions = [];
-python_client = null;
 session_requesters = []
 turn_color = null;
+
+class game_Session{
+    my_board = new b.Board()
+    constructor() {
+        this.my_board.initialize_board()
+    }
+
+    process_data(message = ""){
+        if (message == null)
+            return this.my_board.return_data()
+        let balls = [];
+        let direction = parseInt(message[message.length - 1])
+        let selected = message.slice(0, message.length - 2)
+        for (let i = 0; i < parseInt(selected.length / 2.0); i++){
+            let x = parseInt(selected[i*2])
+            let y = parseInt(selected[i*2 + 1])
+            let ball = this.my_board.find_ball_by_position([x, y])
+            balls.push(ball)
+        }
+        this.my_board.move(balls, direction)
+        this.my_board.display()
+        return this.my_board.return_data()
+    }
+}
 
 wss.on("connection", function connection(ws, req){
     const client_ip = req.socket.remoteAddress;
@@ -17,69 +41,53 @@ wss.on("connection", function connection(ws, req){
         data = `${data}`;
         console.log(`a client sent us: ${data}`);
 
-        if (data == "python connected"){ // verify python client
-            console.log("client identified as python_client");
-            python_client = ws;
-            clients.splice(clients.indexOf(ws));
-        }
 
-        else if(data == "session_request"){ // session request from browser
+        if(data === "session_request"){ // session request from browser
             found_session = false
             for(let i = 0; i < sessions.length; i++){
-                if (sessions[i].length == 2){
+                if (sessions[i].length === 2){
                     sessions[i].push(ws)
-                    python_client.send(`session_start${sessions[i][0]}`)
+
+                    let [new_state_data, turncolor] = sessions[i][0].process_data()
+                    console.log("a session started")
                     sessions[i][1].send("red")
                     sessions[i][2].send("white")
+                    console.log(`sending new state data to all clients (length:${sessions[i].length})`);
+                    for (let j = 1; j < sessions[i].length; j++){
+                        sessions[i][j].send(new_state_data);
+                    }
+                    turn_color = turncolor
                     found_session = true
                 }
             }
-            if (python_client != null && found_session == false){
-                python_client.send("session_request"); // send session request to python
-                session_requesters.push(ws);
+            if (found_session === false){
+                 let sess = new game_Session()
+                sessions.push([sess, ws]) // save session id
+                console.log(`new session created (total sessions:${sessions.length})`)
             }
         }
         
-        else if (data.slice(0,12) == "move_request"){ //move information from browser
-                if (python_client != null){
-                    console.log("sending message to python_client");
-                    move_data = data.slice(12, data.length);
-                    color_check = false;
-                    let session_id = null;
-                    turn_check = false;
-                    for (let i = 0; i < sessions.length; i++){
-                        if (sessions[i].includes(ws)){
-                            session_id = sessions[i][0];
-                            index = sessions[i].indexOf(ws)
-                            console.log(turn_color, )
-                            if ((turn_color == "W" && index == 2) || (turn_color == "R" && index == 1))
-                                turn_check = true;
-                        }
-                    }
-                    if (turn_check)
-                        python_client.send(`move_data${session_id},${move_data}`); // send move information to python    
-            }
-        }
-
-        else if (data.slice(0,10) == "session_id"){
-            session_id = data.slice(10, data.length);
-                session_id = `${session_id}`;
-                sessions.push([session_id, session_requesters[0]]) // save session id
-                session_requesters.splice(session_requesters.indexOf(session_requesters[0]))
-        }
-
-        else if (ws == python_client && data.slice(0, 12) == "move_respond"){ // move respond info from python
-            data = data.slice(12, data.length);
-            let parts = data.split(",");
-            let session_id = parts[0];
-            let move_data = parts[1];  
-            turn_color = parts[2];
+        else if (data.slice(0,12) === "move_request"){ //move information from browser
+            move_data = data.slice(12, data.length);
+            color_check = false;
+            let session = null;
+            let session_index = null
+            turn_check = false;
             for (let i = 0; i < sessions.length; i++){
-                if (sessions[i][0] == session_id){
-                    console.log(`sending new state data to all clients (length:${clients.length})`);
-                    for (let j = 1; j < sessions[i].length; j++){
-                        sessions[i][j].send(move_data);
-                    }
+                if (sessions[i].includes(ws)){
+                    session = sessions[i][0];
+                    session_index = i
+                    index = sessions[i].indexOf(ws)
+                    if ((turn_color === "W" && index === 2) || (turn_color === "R" && index === 1))
+                        turn_check = true;
+                }
+            }
+            if (turn_check){
+                let [new_state_data, turncolor] = session.process_data(move_data)
+                console.log(`sending new state data to all clients (length:${sessions[session_index].length})`);
+                for (let j = 1; j < sessions[session_index].length; j++){
+                    sessions[session_index][j].send(`${new_state_data},${turncolor}`);
+                    turn_color = turncolor
                 }
             }
         }
@@ -88,13 +96,11 @@ wss.on("connection", function connection(ws, req){
         clients.splice(clients.indexOf(ws));
         for (let i = 0; i < sessions.length; i++){
             if (sessions[i].includes(ws)){
-                python_client.send("session_close"+sessions[i][0])
-                
                 console.log("informing every client that session is closed")
                 for (let j = 1; j < sessions[i].length; j++){
-                    sessions[i][j].send("session_closed");
+                    sessions[i][j].send(`session_closed`);
                 }
-                sessions.splice(sessions.indexOf(sessions[i]))
+                sessions.splice(sessions.indexOf(sessions[i]), 1)
             }
         }
         console.log("a user disconnected");
