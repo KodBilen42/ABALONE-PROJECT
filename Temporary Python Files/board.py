@@ -59,19 +59,19 @@ class Board:
         elif len(ball) == 3:
             x, y, _ = ball
         if y < 4:
-            borders = [[x, y + 1], [x + 1, y + 1],
+            borders = [[x - 1, y - 1], [x, y - 1],
                        [x - 1, y], [x + 1, y],
-                       [x - 1, y - 1], [x, y - 1]]
+                       [x, y + 1], [x + 1, y + 1]]
 
         elif y == 4:
-            borders = [[x - 1, y + 1], [x, y + 1],
+            borders = [[x - 1, y - 1], [x, y - 1],
                        [x - 1, y], [x + 1, y],
-                       [x - 1, y - 1], [x, y - 1]]
+                       [x - 1, y + 1], [x, y + 1]]
 
         elif y > 4:
-            borders = [[x - 1, y + 1], [x, y + 1],
+            borders = [[x, y - 1], [x + 1, y - 1],
                        [x - 1, y], [x + 1, y],
-                       [x, y - 1], [x + 1, y - 1]]
+                       [x - 1, y + 1], [x, y + 1]]
 
         final_borders = []
         for border in borders:
@@ -333,4 +333,5 @@ class Board:
 
 myboard = Board()
 myboard.initialize_board()
-print( myboard.force_check([[0,0,"R"], [1, 1, "R"], [2, 2, "R"]], 1))
+print(myboard.move([[2, 2, "R"]], 5))
+myboard.display()

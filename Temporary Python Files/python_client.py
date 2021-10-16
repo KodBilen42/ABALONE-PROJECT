@@ -33,7 +33,7 @@ class Session:
             x = int(selected[i*2])
             y = int(selected[i*2 + 1])
             ball = self.my_board.find_ball_by_position([x, y])
-            balls.append(ball)
+            balls.append(ball)  
         self.my_board.move(balls, direction)
         self.my_board.display()
         return self.my_board.return_data()
