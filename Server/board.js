@@ -492,5 +492,7 @@ myboard.move([[3, 3, "R"], [2, 2, "R"], [1, 1, "R"]], 5)
 myboard.display()
 myboard.move([[3, 5, "W"], [2, 6, "W"], [1, 7, "W"]], 1)
 myboard.display()
-*/
+ */
+
+
 
