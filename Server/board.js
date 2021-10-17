@@ -251,7 +251,6 @@ class Board{
         let behind = ball
         let force = 0
         while(true){
-            behind = this.is_backed(behind, direction)
             if(!behind)
                 break
             ball = this.find_ball_by_position(ball)
@@ -261,8 +260,8 @@ class Board{
                 force += 1
             else if(behind[2] == attacking_color)
                 force = 9
+            behind = this.is_backed(behind, direction)
         }
-        force += 1
         return force
     }
     
@@ -482,17 +481,11 @@ module.exports ={
 
 /*
 let myboard = new Board()
-myboard.initialize_board(state = "00R10R20R30R40R01R11R21R31R41R51R22R32R42R26W36W46W07W17W27W37W47W57W08W18W28W38W48W")
+//myboard.initialize_board(state = "00R10R20R30R40R01R11R21R31R41R51R22R32R42R26W36W46W07W17W27W37W47W57W08W18W28W38W48W")
+myboard.initialize_board(state = "10R20R30R40R01R21R31R41R51R32R42R36W46W07W27W37W47W57W18W28W38W48W22R33R26W35W43R44W")
 myboard.display()
-myboard.move([[2, 2, "R"], [1, 1, "R"], [0, 0, "R"]], 5)
+myboard.move([[2, 2, "R"], [3, 3, "R"]], 5)
 myboard.display()
-myboard.move([[2, 6, "W"], [1, 7, "W"], [0, 8, "W"]], 1)
-myboard.display()
-myboard.move([[3, 3, "R"], [2, 2, "R"], [1, 1, "R"]], 5)
-myboard.display()
-myboard.move([[3, 5, "W"], [2, 6, "W"], [1, 7, "W"]], 1)
-myboard.display()
- */
-
+*/
 
 
