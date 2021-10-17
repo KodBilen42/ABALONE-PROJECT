@@ -425,7 +425,7 @@ class Board{
             this.push(this.find_ball_by_position(moving_position), direction)
         this.balls.splice(array_location(this.balls, ball), 1)
         if( moving_position === null)
-            return new ["pushed", ball]
+            return ["pushed", ball]
         if( this.is_position_in_range(moving_position)){
             moving_position.push(ball[2])
             this.balls.push(moving_position)
