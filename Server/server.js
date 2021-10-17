@@ -5,9 +5,10 @@ const wss = new WebSocket.Server({ port: 5500 });
 clients = [];
 sessions = [];
 session_requesters = []
-turn_color = null;
+
 
 class game_Session{
+    turn_color = null;
     my_board = new b.Board()
     constructor() {
         this.my_board.initialize_board()
@@ -57,7 +58,7 @@ wss.on("connection", function connection(ws, req){
                     for (let j = 1; j < sessions[i].length; j++){
                         sessions[i][j].send(new_state_data);
                     }
-                    turn_color = turncolor
+                    sessions[i][0].turn_color = turncolor
                     found_session = true
                 }
             }
@@ -79,7 +80,7 @@ wss.on("connection", function connection(ws, req){
                     session = sessions[i][0];
                     session_index = i
                     index = sessions[i].indexOf(ws)
-                    if ((turn_color === "W" && index === 2) || (turn_color === "R" && index === 1))
+                    if ((sessions[i][0].turn_color === "W" && index === 2) || (sessions[i][0].turn_color === "R" && index === 1))
                         turn_check = true;
                 }
             }
@@ -88,7 +89,7 @@ wss.on("connection", function connection(ws, req){
                 console.log(`sending new state data to all clients (length:${sessions[session_index].length})`);
                 for (let j = 1; j < sessions[session_index].length; j++){
                     sessions[session_index][j].send(`${new_state_data},${turncolor}`);
-                    turn_color = turncolor
+                    sessions[session_index][0].turn_color = turncolor
                 }
             }
         }

@@ -474,7 +474,8 @@ class Board{
         return ["data" + data_pack, this.turn]
     }
 }
-
+/*
 module.exports ={
     Board
 }
+*/

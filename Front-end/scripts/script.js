@@ -1,8 +1,14 @@
+
 const ws = new WebSocket("ws://localhost:5500");
+
+let game = new Board()
+let selected = [];
+let swapped = false;
+let state = "";
+
 ws.addEventListener("open", ()=>{
   ws.send("session_request")
 })
-state = "";
 ws.addEventListener("message", ({data}) =>{
   console.log(`server sent us ${data}`);
 
@@ -27,14 +33,9 @@ ws.addEventListener("message", ({data}) =>{
   }
 })
 
-let selected = [];
-let command = "9";
-let swapped = false;
-
-
 // read move command and send a move_requets to server
 function read_command(){
-    command = document.getElementById("text").value;
+    let command = document.getElementById("text").value;
     if (swapped){
       command_changer = "452301"
       command = command_changer[parseInt(command)]
@@ -62,7 +63,6 @@ function read_command(){
     selected = []
   }
 
-// Give the appropriate classes to the buttons according to server state data
 function render_empty(){
   all_elements = document.getElementsByTagName("button")
   for (let i = 0; i < all_elements.length; i++){
@@ -70,6 +70,7 @@ function render_empty(){
   }
 }
 
+// Give the appropriate classes to the buttons according to server state data
 function render(){
   render_empty()
   for (let i = 0; i < state.length / 3; i++){
@@ -105,6 +106,7 @@ function check(){
   }
   return(true);
 }
+
 //selected function
 function select(element) {
   if (selected.includes(element)){
@@ -122,7 +124,7 @@ function select(element) {
     console.log(element.id + " added")
   }
   console.log(selected);
-  idcalculator(element)
+  //idcalculator(element)
 }
 //hover function
 function hover(element){
@@ -139,6 +141,8 @@ function hover_end(element){
   element.className = element.className.replace(" w_border", "");
 }
 
+
+/*
 function idcalculator(element){
   let id1 = Number(element.id) + 1;
   let id2 = Number(element.id) + 10;
@@ -154,3 +158,4 @@ function idcalculator(element){
     }
   }
 }
+*/
