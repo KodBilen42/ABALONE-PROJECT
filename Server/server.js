@@ -18,13 +18,14 @@ class game_Session{
             return this.my_board.return_data()
         let balls = [];
         let direction = parseInt(message[message.length - 1])
-        let selected = message.slice(0, message.length - 2)
+        let selected = message.slice(0, message.length - 1)
         for (let i = 0; i < parseInt(selected.length / 2.0); i++){
             let x = parseInt(selected[i*2])
             let y = parseInt(selected[i*2 + 1])
             let ball = this.my_board.find_ball_by_position([x, y])
             balls.push(ball)
         }
+        console.log(balls)
         this.my_board.move(balls, direction)
         this.my_board.display()
         return this.my_board.return_data()
