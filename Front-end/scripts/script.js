@@ -4,6 +4,7 @@ const ws = new WebSocket("ws://localhost:5500");
 let selected = [];
 let swapped = false;
 let state = "";
+let playing = false;
 
 ws.addEventListener("open", () => {
   ws.send("session_request");
@@ -17,10 +18,13 @@ ws.addEventListener("message", ({ data }) => {
     state = new_state;
     render();
   } else if (data.slice(0, 5) == "white") {
+    playing = true;
     swapped = false;
   } else if (data.slice(0, 3) == "red") {
+    playing = true;
     swapped = true;
   } else if (data.slice(0, 14) == "session_closed") {
+    playing = false;
     render_empty();
     ws.send("session_request");
   }
