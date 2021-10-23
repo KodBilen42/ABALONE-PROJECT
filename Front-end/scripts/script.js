@@ -30,6 +30,30 @@ ws.addEventListener("message", ({ data }) => {
   }
 });
 
+//bağlantı sorunları falan kısmı
+const modal = document.getElementById("myModal");
+const url = new URL(window.location.href);
+if (url.searchParams.get("error") == "1") {
+  modal.style.display = "inline";
+}
+
+function isOpen() {
+  if (ws.readyState !== ws.OPEN) {
+    if (modal.style.display == "inline") {
+      if (url.searchParams.get("error") != "1") {
+        url.searchParams.append("error", 1);
+      }
+      window.location.href = url;
+    } else {
+      modal.style.display = "inline";
+    }
+  } else {
+    modal.style.display = "none";
+  }
+}
+
+setInterval(() => isOpen(), 3000);
+
 // read move command and send a move_requets to server
 function read_command() {
   let command = document.getElementById("text").value;
