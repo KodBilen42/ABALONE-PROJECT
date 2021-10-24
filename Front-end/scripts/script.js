@@ -30,13 +30,12 @@ ws.addEventListener("message", ({ data }) => {
   }
 });
 
-//bağlantı sorunları falan kısmı
+// if websocket connection drops shows modal and tries to reconnect
 const modal = document.getElementById("myModal");
 const url = new URL(window.location.href);
 if (url.searchParams.get("error") == "1") {
   modal.style.display = "inline";
 }
-
 function isOpen() {
   if (ws.readyState !== ws.OPEN) {
     if (modal.style.display == "inline") {
@@ -51,7 +50,6 @@ function isOpen() {
     modal.style.display = "none";
   }
 }
-
 setInterval(() => isOpen(), 3000);
 
 // read move command and send a move_requets to server
