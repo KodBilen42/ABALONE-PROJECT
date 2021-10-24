@@ -1,17 +1,20 @@
 const host = "localhost";
 let ws = new WebSocket(`ws://${host}:3`);
 
+const username = localStorage.getItem("username") || "Anonymous";
 let game = new Board();
 let selected = [];
 let swapped = false;
 let state = "";
-let playing = false;
 
 function connect() {
   ws = new WebSocket(`ws://${host}:3`);
   ws.addEventListener("open", () => {
     modal.style.display = "none";
     ws.send("session_request");
+    ws.send(
+      `benim adım ${username} soyadım ilhan 19 yaşındayım yakılışlıyım taliplerimi bekliyorum`
+    );
   });
   ws.addEventListener("message", ({ data }) => {
     console.log(`server sent us ${data}`);
@@ -22,13 +25,10 @@ function connect() {
       state = new_state;
       render();
     } else if (data.slice(0, 5) == "white") {
-      playing = true;
       swapped = false;
     } else if (data.slice(0, 3) == "red") {
-      playing = true;
       swapped = true;
     } else if (data.slice(0, 14) == "session_closed") {
-      playing = false;
       render_empty();
       ws.send("session_request");
     }
