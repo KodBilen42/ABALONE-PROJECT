@@ -1,4 +1,5 @@
-const ws = new WebSocket("ws://localhost:3");
+const host = "localhost";
+let ws = new WebSocket(`ws://${host}:3`);
 
 let game = new Board();
 let selected = [];
@@ -6,43 +7,41 @@ let swapped = false;
 let state = "";
 let playing = false;
 
-ws.addEventListener("open", () => {
-  ws.send("session_request");
-});
-ws.addEventListener("message", ({ data }) => {
-  console.log(`server sent us ${data}`);
-
-  if (data.slice(0, 4) == "data") {
-    new_state = data.slice(4, data.length);
-    console.log(`new state:${new_state}`);
-    state = new_state;
-    render();
-  } else if (data.slice(0, 5) == "white") {
-    playing = true;
-    swapped = false;
-  } else if (data.slice(0, 3) == "red") {
-    playing = true;
-    swapped = true;
-  } else if (data.slice(0, 14) == "session_closed") {
-    playing = false;
-    render_empty();
+function connect() {
+  ws = new WebSocket(`ws://${host}:3`);
+  ws.addEventListener("open", () => {
     ws.send("session_request");
-  }
-});
+  });
+  ws.addEventListener("message", ({ data }) => {
+    console.log(`server sent us ${data}`);
+
+    if (data.slice(0, 4) == "data") {
+      new_state = data.slice(4, data.length);
+      console.log(`new state:${new_state}`);
+      state = new_state;
+      render();
+    } else if (data.slice(0, 5) == "white") {
+      playing = true;
+      swapped = false;
+    } else if (data.slice(0, 3) == "red") {
+      playing = true;
+      swapped = true;
+    } else if (data.slice(0, 14) == "session_closed") {
+      playing = false;
+      render_empty();
+      ws.send("session_request");
+    }
+  });
+}
+connect();
 
 // if websocket connection drops shows modal and tries to reconnect
 const modal = document.getElementById("reconnectModal");
-const url = new URL(window.location.href);
-if (url.searchParams.get("error") == "1") {
-  modal.style.display = "inline";
-}
+
 function isOpen() {
   if (ws.readyState !== ws.OPEN) {
     if (modal.style.display == "block") {
-      if (url.searchParams.get("error") != "1") {
-        url.searchParams.append("error", 1);
-      }
-      window.location.href = url;
+      connect();
     } else {
       modal.style.display = "block";
     }
@@ -50,7 +49,7 @@ function isOpen() {
     modal.style.display = "none";
   }
 }
-setInterval(() => isOpen(), 3000);
+setInterval(() => isOpen(), 1000);
 
 // read move command and send a move_requets to server
 function read_command() {
