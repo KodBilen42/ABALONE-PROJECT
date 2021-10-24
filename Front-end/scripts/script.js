@@ -1,6 +1,6 @@
 const ws = new WebSocket("ws://localhost:3");
 
-//let game = new Board(); this breaks everything LAN BUNU NİYE YAZDINIZ 2 SAATTİR UĞRAŞIYORUM
+let game = new Board();
 let selected = [];
 let swapped = false;
 let state = "";
