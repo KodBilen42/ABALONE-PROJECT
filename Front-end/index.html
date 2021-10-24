@@ -55,9 +55,9 @@
             <a href="#" title="Close" class="modal-close">Close</a>
             <h1 class="modal-text">Enter your username</h1>
             <div class="modal-text-2">
-                <form name="play-form" class="play-form">
+                <form name="play-form" class="play-form" onsubmit="event.preventDefault();check();">
                     <input name="name" class="input-enter" type="text" placeholder="Username">
-                    <input class="input-submit" type="button" value="Play" onclick="check()">
+                    <input class="input-submit" type="submit" value="Play">
                 </form>
             </div>
         </div>
