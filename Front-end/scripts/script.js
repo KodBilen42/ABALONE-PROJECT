@@ -31,20 +31,20 @@ ws.addEventListener("message", ({ data }) => {
 });
 
 // if websocket connection drops shows modal and tries to reconnect
-const modal = document.getElementById("myModal");
+const modal = document.getElementById("reconnectModal");
 const url = new URL(window.location.href);
 if (url.searchParams.get("error") == "1") {
   modal.style.display = "inline";
 }
 function isOpen() {
   if (ws.readyState !== ws.OPEN) {
-    if (modal.style.display == "inline") {
+    if (modal.style.display == "block") {
       if (url.searchParams.get("error") != "1") {
         url.searchParams.append("error", 1);
       }
       window.location.href = url;
     } else {
-      modal.style.display = "inline";
+      modal.style.display = "block";
     }
   } else {
     modal.style.display = "none";
