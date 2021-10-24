@@ -1,4 +1,4 @@
-const ws = new WebSocket("ws://localhost:5500");
+const ws = new WebSocket("ws://localhost:3");
 
 //let game = new Board(); this breaks everything LAN BUNU NİYE YAZDINIZ 2 SAATTİR UĞRAŞIYORUM
 let selected = [];
