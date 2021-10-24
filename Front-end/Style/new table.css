@@ -284,3 +284,19 @@ button:hover{
   border-radius: 10px;
   width: 400px; /* Could be more or less, depending on screen size */
 }
+
+/* chat input bunun baya değişmesi lazım çok kötü oldu :( */
+input[type="text"] {
+  width: 200px;
+  height: 20px;
+  padding-right: 50px;
+  background: #230505;
+}
+input[type="submit"] {
+  margin-left: -50px;
+  height: 25px;
+  width: 50px;
+  background: #230505;
+  color: white;
+  border: 0;
+}
