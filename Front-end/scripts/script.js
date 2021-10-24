@@ -10,6 +10,7 @@ let playing = false;
 function connect() {
   ws = new WebSocket(`ws://${host}:3`);
   ws.addEventListener("open", () => {
+    modal.style.display = "none";
     ws.send("session_request");
   });
   ws.addEventListener("message", ({ data }) => {
@@ -37,16 +38,10 @@ connect();
 
 // if websocket connection drops shows modal and tries to reconnect
 const modal = document.getElementById("reconnectModal");
-
 function isOpen() {
-  if (ws.readyState !== ws.OPEN) {
-    if (modal.style.display == "block") {
-      connect();
-    } else {
-      modal.style.display = "block";
-    }
-  } else {
-    modal.style.display = "none";
+  if (ws.readyState == 3) {
+    connect();
+    modal.style.display = "block";
   }
 }
 setInterval(() => isOpen(), 1000);
