@@ -55,23 +55,26 @@
             <a href="#" title="Close" class="modal-close">Close</a>
             <h1 class="modal-text">Enter your username</h1>
             <div class="modal-text-2">
-                <form action="new table.html" name="play-form" onsubmit="return check()" class="play-form">
+                <form name="play-form" class="play-form">
                     <input name="name" class="input-enter" type="text" placeholder="Username">
-                    <input class="input-submit" type="submit" value="Play">
+                    <input class="input-submit" type="button" value="Play" onclick="check()">
                 </form>
             </div>
         </div>
     </div>
     <script>
-        //Modal Box username check function
+        //get username from localstorage if exists
+        let form = document.forms["play-form"];
+        form["name"].value = localStorage.getItem("username");
+        
+        //check if username empty
         function check() {
-            let form = document.forms["play-form"];
-            let checkusername = form["name"].value;
-            if (checkusername == "") {
+            let username = form["name"].value;
+            if (username == "") {
                 alert("Username must be entered");
-                return false;
             }else{
-                return true;
+                localStorage.setItem("username", username);
+                window.location.href = "new table.html";
             }
         }
     </script>
