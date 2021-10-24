@@ -114,18 +114,6 @@ function rotate_board() {
   }
 }
 
-//Modal Box username check function
-function check() {
-  let form = document.forms["play-form"];
-  let checkusername = form["name"].value;
-
-  if (checkusername == "") {
-    alert("Username must be entered");
-    return false;
-  }
-  return true;
-}
-
 //selected function
 function select(element) {
   if (selected.includes(element)) {
