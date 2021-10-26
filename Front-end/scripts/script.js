@@ -114,10 +114,15 @@ function select(element) {
     element.className = element.className.replace(" selected_white", "");
     console.log(element.id + " removed");
   } else {
-    selected.push(element);
-    if (element.className.includes("red")) element.className += " selected_red";
-    else if (element.className.includes("white"))
+    
+    if (element.className.includes("red")){
+       element.className += " selected_red";
+       selected.push(element);
+    }
+    else if (element.className.includes("white")){
       element.className += " selected_white";
+      selected.push(element);
+    }
     console.log(element.id + " added");
   }
   console.log(selected);
