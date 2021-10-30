@@ -4,40 +4,60 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Play Abalone">
     <title>Abalone</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@600;700;900&display=swap" rel="stylesheet">
+    <link rel="icon" href="favicon.png" type="image/png" sizes="16x16">
     <link rel="stylesheet" href="Style/style.css">
+    <script src="https://cdn.jsdelivr.net/npm/petite-vue@0.3.0/dist/petite-vue.iife.js" defer init></script>
+
+    <script>
+        //get username from localstorage if exists
+        username = localStorage.getItem("username");
+        //get server from localstorage if exists
+        server = localStorage.getItem("server") || "ulas";
+        //save username and go to board
+        const play = (username) => {
+            localStorage.setItem("username", username);
+            window.location.href = "new table.html";
+        }
+    </script>
+
 </head>
-<body>
+
+
+
+
+<body v-scope="{ modal: 0, username, server }">
     <div class="logo">
-        <img src="Logo.svg" alt="">
+        <img src="Logo.svg" width="250px" height="70px" alt="">
     </div>
     <div class="main-content">
         <div class="board">
-            <img src="Board.svg" alt="">
+            <img src="Board.svg" width="500px" height="500px" alt="">
         </div>
         <div class="side-content">
 
-            <h1 class="top-h1" style="font-weight: 900; color:#fff; font-size: 96px;">Play</h1>
-            <h1 class="bottom-h1" style="font-weight: 700; color:#fff; font-size: 96px;">ABALONE</h1>
-            <a href="table.html"><div class="playOnline" style="font-weight: 700; color: #BB1717; font-size: 42px;"><img src="users.svg" alt="">Play Online</div></a>
+            <h1 class="top-h1" style="font-weight: 900;">Play</h1>
+            <h1 class="bottom-h1" style="font-weight: 700;">ABALONE</h1>
+            <a href="table.html"><div class="playOnline" style="font-weight: 700; color: #BB1717; font-size: 42px;"><img src="users.svg" width="50px" height="50px" alt="">Play Online</div></a>
             <div class="space"></div>
-            <a href=""><div class="playAi" style="font-weight: 700; color: #fff; font-size: 42px;"><img src="hard-drive.svg" alt=""><a href="#open-modal-2">Play Against AI</a> </div></a>
+            <div class="playAi" @click="modal=2"><img src="hard-drive.svg" width="50px" height="50px" alt="">Play Against AI</div>
             <div class="space"></div>
             
             <div class="paragraphs">
-                <!--  <span style="font-weight: 600; color: rgb(178, 178, 178); font-size: 18px;">How to play?</span>
-                <span style="font-weight: 600; color: #fff; font-size: 18px;"><a href="#open-modal">See rules</a></span>  -->
-                <span style="font-weight: 600; color: #fff; font-size: 18px;cursor: pointer;" id="server">Server: ulas</span>
+                <!--    <span style="font-weight: 600; color: rgb(178, 178, 178); font-size: 18px;">How to play?</span>
+                        <span style="font-weight: 600; color: #fff; font-size: 18px; cursor: pointer;" @click="modal=1">See rules</span>  -->
+                <span id="server" @click="server == 'ulas' ? server = 'localhost' : server = 'ulas';localStorage.setItem('server',server);">Server: {{ server }}</span>
             </div>
             
         </div> 
     </div>
-      <div id="open-modal" class="modal-window">
+      <div id="open-modal" class="modal-window" v-cloak v-show="modal==1">
         <div>
-            <a href="#" title="Close" class="modal-close">Close</a>
+            <a style="cursor: pointer;" title="Close" class="modal-close" @click="modal=0">Close</a>
             <h1 class="modal-text">How to Play</h1>
             <div class="modal-text">
                 SA
@@ -51,50 +71,17 @@
             </div>
         </div>
     </div>
-    <div id="open-modal-2" class="modal-window">
+    <div id="open-modal-2" class="modal-window" v-cloak v-if="modal==2">
         <div>
-            <a href="#" title="Close" class="modal-close">Close</a>
+            <a style="cursor: pointer;" title="Close" class="modal-close" @click="modal=0">Close</a>
             <h1 class="modal-text">Enter your username</h1>
             <div class="modal-text-2">
-                <form name="play-form" class="play-form" onsubmit="event.preventDefault();check();">
-                    <input name="name" class="input-enter" type="text" placeholder="Username">
-                    <input class="input-submit" type="submit" value="Play">
+                <form name="play-form" class="play-form">
+                    <input name="name" class="input-enter" type="text" placeholder="Username" v-model="username">
+                    <input class="input-submit" type="submit" value="Play" @click.prevent="username == null || username == '' ? alert('Enter a username') : play(username)">
                 </form>
             </div>
         </div>
     </div>
-    <script>
-        //get username from localstorage if exists
-        let form = document.forms["play-form"];
-        form["name"].value = localStorage.getItem("username");
-        
-        //check if username empty
-        function check() {
-            let username = form["name"].value;
-            if (username == "") {
-                alert("Username must be entered");
-            }else{
-                localStorage.setItem("username", username);
-                window.location.href = "new table.html";
-            }
-        }
-
-        //server selection
-        if(localStorage.getItem("server") == null){
-            localStorage.setItem("server", "ulas")
-        }else if(localStorage.getItem("server") == "localhost"){
-            document.querySelector("#server").innerHTML = "Server: localhost";
-        }
-        document.querySelector("#server").addEventListener("click", () => {
-            if(localStorage.getItem("server") == "ulas"){
-                localStorage.setItem("server","localhost");
-                document.querySelector("#server").innerHTML = "Server: localhost";
-            }else{
-                localStorage.setItem("server","ulas");
-                document.querySelector("#server").innerHTML = "Server: ulas";
-            }
-        });
-
-    </script>
 </body>
 </html>
