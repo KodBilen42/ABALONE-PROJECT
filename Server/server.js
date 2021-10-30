@@ -1,8 +1,7 @@
 const b = require("./board")
 const WebSocket = require("ws")
-require("dotenv").config()
 
-const wss = new WebSocket.Server({ port: process.env.PORT })
+const wss = new WebSocket.Server({ port: process.env.PORT || 3 })
 clients = []
 sessions = []
 session_requesters = []
@@ -25,7 +24,7 @@ class game_Session {
       let ball = this.my_board.find_ball_by_position([x, y])
       balls.push(ball)
     }
-    if ((process.env.NODE_ENV = "dev")) {
+    if (process.env.NODE_ENV == "dev") {
       console.log(balls)
     }
     this.my_board.move(balls, direction)
@@ -37,7 +36,7 @@ class game_Session {
 wss.on("connection", function connection(ws, req) {
   const client_ip = req.socket.remoteAddress
   clients.push(ws)
-  if ((process.env.NODE_ENV = "dev")) {
+  if (process.env.NODE_ENV == "dev") {
     console.log(`a user connected ip:${client_ip}`)
   }
 
@@ -45,7 +44,7 @@ wss.on("connection", function connection(ws, req) {
 
   ws.on("message", (data) => {
     data = `${data}`
-    if ((process.env.NODE_ENV = "dev")) {
+    if (process.env.NODE_ENV == "dev") {
       console.log(`a client sent us: ${data}`)
     }
 
@@ -57,12 +56,12 @@ wss.on("connection", function connection(ws, req) {
           sessions[i].push(ws)
 
           let [new_state_data, turncolor] = sessions[i][0].process_data()
-          if ((process.env.NODE_ENV = "dev")) {
+          if (process.env.NODE_ENV == "dev") {
             console.log("a session started")
           }
           sessions[i][1].send("red")
           sessions[i][2].send("white")
-          if ((process.env.NODE_ENV = "dev")) {
+          if (process.env.NODE_ENV == "dev") {
             console.log(
               `sending new state data to all clients (length:${sessions[i].length})`
             )
@@ -77,7 +76,7 @@ wss.on("connection", function connection(ws, req) {
       if (found_session === false) {
         let sess = new game_Session()
         sessions.push([sess, ws]) // save session id
-        if ((process.env.NODE_ENV = "dev")) {
+        if (process.env.NODE_ENV == "dev") {
           console.log(`new session created (total sessions:${sessions.length})`)
         }
       }
@@ -102,7 +101,7 @@ wss.on("connection", function connection(ws, req) {
       }
       if (turn_check) {
         let [new_state_data, turncolor] = session.process_data(move_data)
-        if ((process.env.NODE_ENV = "dev")) {
+        if (process.env.NODE_ENV == "dev") {
           console.log(
             `sending new state data to all clients (length:${sessions[session_index].length})`
           )
@@ -118,7 +117,7 @@ wss.on("connection", function connection(ws, req) {
     clients.splice(clients.indexOf(ws))
     for (let i = 0; i < sessions.length; i++) {
       if (sessions[i].includes(ws)) {
-        if ((process.env.NODE_ENV = "dev")) {
+        if (process.env.NODE_ENV == "dev") {
           console.log("informing every client that session is closed")
         }
         for (let j = 1; j < sessions[i].length; j++) {
@@ -127,7 +126,7 @@ wss.on("connection", function connection(ws, req) {
         sessions.splice(sessions.indexOf(sessions[i]), 1)
       }
     }
-    if ((process.env.NODE_ENV = "dev")) {
+    if (process.env.NODE_ENV == "dev") {
       console.log("a user disconnected")
     }
   })
