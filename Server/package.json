@@ -4,12 +4,14 @@
   "description": "",
   "main": "server.js",
   "scripts": {
-    "dev": "node server.js"
+    "dev": "cross-env NODE_ENV=dev PORT=3 node server.js"
   },
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "dotenv": "^10.0.0",
     "ws": "^8.2.3"
+  },
+  "devDependencies": {
+    "cross-env": "^7.0.3"
   }
 }
