@@ -28,8 +28,9 @@
             <div class="space"></div>
             
             <div class="paragraphs">
-                <span style="font-weight: 600; color: rgb(178, 178, 178); font-size: 18px;">How to play?</span>
-                <span style="font-weight: 600; color: #fff; font-size: 18px;"><a href="#open-modal">See rules</a></span>
+                <!--  <span style="font-weight: 600; color: rgb(178, 178, 178); font-size: 18px;">How to play?</span>
+                <span style="font-weight: 600; color: #fff; font-size: 18px;"><a href="#open-modal">See rules</a></span>  -->
+                <span style="font-weight: 600; color: #fff; font-size: 18px;cursor: pointer;" id="server">Server: ulas</span>
             </div>
             
         </div> 
@@ -77,6 +78,23 @@
                 window.location.href = "new table.html";
             }
         }
+
+        //server selection
+        if(localStorage.getItem("server") == null){
+            localStorage.setItem("server", "ulas")
+        }else if(localStorage.getItem("server") == "localhost"){
+            document.querySelector("#server").innerHTML = "Server: localhost";
+        }
+        document.querySelector("#server").addEventListener("click", () => {
+            if(localStorage.getItem("server") == "ulas"){
+                localStorage.setItem("server","localhost");
+                document.querySelector("#server").innerHTML = "Server: localhost";
+            }else{
+                localStorage.setItem("server","ulas");
+                document.querySelector("#server").innerHTML = "Server: ulas";
+            }
+        });
+
     </script>
 </body>
 </html>

@@ -1,6 +1,13 @@
-//const host = "localhost";
-const host = "abalone.aristhat.duckdns.org";
-let ws = new WebSocket(`wss://${host}:3`);
+const host = () => {
+  let server = localStorage.getItem("server") || "ulas";
+  if (server == "ulas") {
+    return "wss://abalone.aristhat.duckdns.org:3";
+  } else {
+    return "ws://localhost:3";
+  }
+};
+
+let ws = new WebSocket(host());
 
 const username = localStorage.getItem("username") || "Anonymous";
 let game = new Board();
@@ -9,7 +16,7 @@ let swapped = false;
 let state = "";
 
 function connect() {
-  ws = new WebSocket(`wss://${host}:3`);
+  ws = new WebSocket(host());
   ws.addEventListener("open", () => {
     modal.style.display = "none";
     ws.send("session_request");
@@ -115,12 +122,10 @@ function select(element) {
     element.className = element.className.replace(" selected_white", "");
     console.log(element.id + " removed");
   } else {
-    
-    if (element.className.includes("red")){
-       element.className += " selected_red";
-       selected.push(element);
-    }
-    else if (element.className.includes("white")){
+    if (element.className.includes("red")) {
+      element.className += " selected_red";
+      selected.push(element);
+    } else if (element.className.includes("white")) {
       element.className += " selected_white";
       selected.push(element);
     }
@@ -129,10 +134,7 @@ function select(element) {
   console.log(selected);
 }
 //hover function
-function hover(element) {
-}
+function hover(element) {}
 
 //hover_end function
-function hover_end(element) {
-}
-
+function hover_end(element) {}
