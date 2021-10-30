@@ -1,5 +1,6 @@
-const host = "localhost";
-let ws = new WebSocket(`ws://${host}:3`);
+//const host = "localhost";
+const host = "abalone.aristhat.duckdns.org";
+let ws = new WebSocket(`wss://${host}:3`);
 
 const username = localStorage.getItem("username") || "Anonymous";
 let game = new Board();
@@ -8,7 +9,7 @@ let swapped = false;
 let state = "";
 
 function connect() {
-  ws = new WebSocket(`ws://${host}:3`);
+  ws = new WebSocket(`wss://${host}:3`);
   ws.addEventListener("open", () => {
     modal.style.display = "none";
     ws.send("session_request");
