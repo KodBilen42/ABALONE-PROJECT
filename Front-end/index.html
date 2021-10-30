@@ -24,11 +24,7 @@
             window.location.href = "new table.html";
         }
     </script>
-
 </head>
-
-
-
 
 <body v-scope="{ modal: 0, username, server }">
     <div class="logo">
@@ -39,20 +35,17 @@
             <img src="Board.svg" width="500px" height="500px" alt="">
         </div>
         <div class="side-content">
-
             <h1 class="top-h1" style="font-weight: 900;">Play</h1>
             <h1 class="bottom-h1" style="font-weight: 700;">ABALONE</h1>
             <a href="table.html"><div class="playOnline" style="font-weight: 700; color: #BB1717; font-size: 42px;"><img src="users.svg" width="50px" height="50px" alt="">Play Online</div></a>
             <div class="space"></div>
             <div class="playAi" @click="modal=2"><img src="hard-drive.svg" width="50px" height="50px" alt="">Play Against AI</div>
             <div class="space"></div>
-            
             <div class="paragraphs">
                 <!--    <span style="font-weight: 600; color: rgb(178, 178, 178); font-size: 18px;">How to play?</span>
                         <span style="font-weight: 600; color: #fff; font-size: 18px; cursor: pointer;" @click="modal=1">See rules</span>  -->
                 <span id="server" @click="server == 'ulas' ? server = 'localhost' : server = 'ulas';localStorage.setItem('server',server);">Server: {{ server }}</span>
             </div>
-            
         </div> 
     </div>
       <div id="open-modal" class="modal-window" v-cloak v-show="modal==1">
