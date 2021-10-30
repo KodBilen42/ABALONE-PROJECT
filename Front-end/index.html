@@ -32,7 +32,7 @@
     </div>
     <div class="main-content">
         <div class="board">
-            <img src="Board.svg" width="500px" height="500px" alt="">
+            <img src="Board.svg" alt="">
         </div>
         <div class="side-content">
             <h1 class="top-h1" style="font-weight: 900;">Play</h1>
@@ -48,7 +48,7 @@
             </div>
         </div> 
     </div>
-      <div id="open-modal" class="modal-window" v-cloak v-show="modal==1">
+      <div id="open-modal" class="modal-window" v-cloak v-if="modal==1">
         <div>
             <a style="cursor: pointer;" title="Close" class="modal-close" @click="modal=0">Close</a>
             <h1 class="modal-text">How to Play</h1>
