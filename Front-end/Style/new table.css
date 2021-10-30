@@ -19,17 +19,17 @@ body {
 .logo {
   height: 100vh;
   width: 15vw;
-  margin-top: .5vw;
-  margin-left: .5vw;
+  margin-top: 0.5vw;
+  margin-left: 0.5vw;
 }
 .board {
-  background: url(/Front-end/board_bg.svg) no-repeat;
+  background: url(https://abalone.aristhat.duckdns.org/board_bg.svg) no-repeat;
   background-size: contain;
   width: 58%;
   height: 87vh;
 }
 .circles {
-  margin-top: 3.50vw;
+  margin-top: 3.5vw;
 }
 .container {
   width: 85%;
@@ -66,7 +66,7 @@ button {
 }
 .fourth_line {
   position: relative;
-  bottom: .75vw;
+  bottom: 0.75vw;
   max-width: 47.5vw;
   padding-left: 8vw;
   width: 100%;
