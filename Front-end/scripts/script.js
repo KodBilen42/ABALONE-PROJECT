@@ -130,9 +130,11 @@ function select(element) {
         let direction = surrounding_positons[i]
         for(let j = 0; j < direction.length; j++){
           let position = direction[j]
-          if(position[0].toString() + position[1].toString() == element.id){
-            console.log("request")
-            move_request(i)
+          if(position != null){
+            if(position[0].toString() + position[1].toString() == element.id){
+              console.log("request")
+              move_request(i)
+            }
           }
         }
       }
