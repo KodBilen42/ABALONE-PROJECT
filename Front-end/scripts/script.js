@@ -126,14 +126,16 @@ function select(element) {
     || (element.className.includes("white") && swapped)){
       console.log("move")
       let surrounding_positons = calculate_surrounding_positons()
-      for(let i = 0; i < surrounding_positons.length; i++){
-        let direction = surrounding_positons[i]
-        for(let j = 0; j < direction.length; j++){
-          let position = direction[j]
-          if(position != null){
-            if(position[0].toString() + position[1].toString() == element.id){
-              console.log("request")
-              move_request(i)
+      if (surrounding_positons !== null){
+        for(let i = 0; i < surrounding_positons.length; i++){
+          let direction = surrounding_positons[i]
+          for(let j = 0; j < direction.length; j++){
+            let position = direction[j]
+            if(position != null){
+              if(position[0].toString() + position[1].toString() == element.id){
+                console.log("request")
+                move_request(i)
+              }
             }
           }
         }
@@ -183,12 +185,15 @@ function calculate_surrounding_positons(){
     }
   }
   else if(selected.length === 2 || selected.length === 3){
+    
     let direction_wheel = "20135420"
     let balls = [];
     for(let ballobject of selected){
       balls.push(element_to_ball(ballobject))
     }
     let groupdirecion = game.block_check(balls)
+    if (!groupdirecion)
+      return null
     let ball1 = game.find_head(balls, groupdirecion)
     let ball2 = game.find_head(balls, game.opposite_direction(groupdirecion))
     let direction1;
